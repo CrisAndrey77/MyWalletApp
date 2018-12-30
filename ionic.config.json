@@ -1,0 +1,7 @@
+{
+  "name": "MyWalletApp",
+  "integrations": {
+    "cordova": {}
+  },
+  "type": "ionic-angular"
+}
