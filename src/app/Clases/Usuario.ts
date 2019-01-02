@@ -85,5 +85,4 @@ export class Usuario {
     this.establecimientos =
       Establecimiento.incrementaRankingEstablecimiento(this.establecimientos, tempEstablecimiento);
   }
-
 }
