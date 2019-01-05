@@ -1,0 +1,56 @@
+<!--
+  Generated template for the RegistrarEstablecimientoPage page.
+
+  See http://ionicframework.com/docs/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<ion-header>
+
+  <ion-navbar>
+    <ion-title>Registrar Establecimiento</ion-title>
+  </ion-navbar>
+
+</ion-header>
+
+
+<ion-content padding>
+
+    <ion-item >
+        <ion-label>Establecimiento: </ion-label>
+        <ion-textarea readonly [(ngModel)]="place.name">
+        </ion-textarea>
+      </ion-item>
+
+      <ion-item >
+          <ion-label>Direccion: </ion-label>
+          <ion-textarea readonly [(ngModel)]="place.vicinity">
+          </ion-textarea>
+        </ion-item>
+
+      <ion-item >
+          <ion-label>Rating: </ion-label>
+          <ion-textarea readonly [(ngModel)]="place.rating">
+          </ion-textarea>
+      </ion-item>
+
+      <ion-item>
+          <ion-label>Titulo del gasto: </ion-label>
+            <ion-input [(ngModel)]="gasto.nombre">
+            </ion-input>
+      </ion-item>
+
+      <ion-item>
+          <ion-label>Descripcion del gasto: </ion-label>
+            <ion-textarea [(ngModel)]="gasto.descripcion">
+            </ion-textarea>
+      </ion-item>
+
+      <ion-item>
+          <ion-label>Cantidad pagada: </ion-label>
+            <ion-input [(ngModel)]="gasto.valor">
+            </ion-input>
+      </ion-item>
+
+            <button ion-button block clear (click)="agregarGasto(gasto)">Agregar gasto</button>
+
+</ion-content>

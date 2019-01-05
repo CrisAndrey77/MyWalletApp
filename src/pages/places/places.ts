@@ -1,6 +1,7 @@
 import { Component, NgZone } from '@angular/core';
 import { IonicPage, NavController, NavParams, LoadingController } from 'ionic-angular';
 import { Geolocation } from '@ionic-native/geolocation';
+import { Storage } from '@ionic/storage';
 
 /**
  * Generated class for the PlacesPage page.
@@ -25,11 +26,13 @@ export class PlacesPage {
   nearbyItems: any = new Array<any>();
   loading: any;
   position:any;
+  place:any;
 
   constructor(public navCtrl: NavController, public navParams: NavParams, 
     public zone: NgZone,
     public loadingCtrl: LoadingController,
-    public geolocation: Geolocation) {
+    public geolocation: Geolocation,
+    private storage: Storage) {
 
       this.geocoder = new google.maps.Geocoder;
       let elem = document.createElement("div")
@@ -56,7 +59,7 @@ export class PlacesPage {
         location: this.position,
         radius: '1000',
         types: ['restaurant'], //check other types here https://developers.google.com/places/web-service/supported_types
-        key: '-'
+        key: 'AIzaSyBlWeLtK5QpzOMvKF7M1s-f9a7HWHQUHlY'
       }, (near_places) => {
         this.zone.run(() => {
           this.nearbyItems = [];
@@ -106,7 +109,7 @@ export class PlacesPage {
           location: this.position,
           radius: '1000',
           types: [item], //check other types here https://developers.google.com/places/web-service/supported_types
-          key: '-'
+          key: 'AIzaSyBlWeLtK5QpzOMvKF7M1s-f9a7HWHQUHlY'
         }, (near_places) => {
           this.zone.run(() => {
             this.nearbyItems = [];
@@ -118,7 +121,15 @@ export class PlacesPage {
         })
       }
 
-
+  registrarEstablecimiento(place){
+        var lugar = {
+          name : place.name,
+          vicinity : place.vicinity,
+          rating : place.rating
+        }
+        this.storage.set('place', lugar);
+        this.navCtrl.push('RegistrarEstablecimientoPage');
+  }
 
 
   /*selectSearchResult(item){

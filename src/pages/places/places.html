@@ -27,7 +27,7 @@
     </ion-row>
   </ion-grid>
   <ion-list *ngIf="nearbyItems.length > 0">
-    <ion-item *ngFor="let place of nearbyItems">
+    <ion-item *ngFor="let place of nearbyItems" detail-push (click)="registrarEstablecimiento(place)">
       <h2>{{place.name}}</h2>
       <p>{{place.vicinity}}</p>
       <p>Rating {{place.rating}}</p>

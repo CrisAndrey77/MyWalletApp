@@ -1,11 +1,10 @@
 import {Component, ViewChild} from '@angular/core';
-import {Nav, Platform} from 'ionic-angular';
+import {Nav, Platform, MenuController} from 'ionic-angular';
 import {StatusBar} from '@ionic-native/status-bar';
 import {SplashScreen} from '@ionic-native/splash-screen';
+import {AngularFireAuth} from 'angularfire2/auth';
+import { Storage } from '@ionic/storage';
 
-import {HomePage} from '../pages/home/home';
-import {ListPage} from '../pages/list/list';
-import {MasVisitadosPage} from '../pages/mas-visitados/mas-visitados';
 
 @Component({
   templateUrl: 'app.html'
@@ -13,18 +12,25 @@ import {MasVisitadosPage} from '../pages/mas-visitados/mas-visitados';
 export class MyApp {
   @ViewChild(Nav) nav: Nav;
 
-  rootPage: any = HomePage;
-
+  rootPage:any = 'LoginPage';
   pages: Array<{ title: string, component: any }>;
 
-  constructor(public platform: Platform, public statusBar: StatusBar, public splashScreen: SplashScreen) {
+  constructor(
+    public platform: Platform, 
+    public statusBar: StatusBar, 
+    public splashScreen: SplashScreen,
+    public menu: MenuController,
+    private angularFireAuth: AngularFireAuth,
+    private storage: Storage) {
     this.initializeApp();
 
     // used for an example of ngFor and navigation
     this.pages = [
-      {title: 'Home', component: HomePage},
-      {title: 'List', component: ListPage},
-      {title: 'Más visitados', component: MasVisitadosPage}
+      {title: 'Home', component: 'HomePage'},
+      {title: 'List', component: 'ListPage'},
+      {title: 'Detalles de la cuenta', component: 'VerUsuarioPage'},
+      {title: 'Logout', component: 'LoginPage'},
+      //{title: 'Más visitados', component: MasVisitadosPage}
     ];
 
   }
@@ -35,12 +41,34 @@ export class MyApp {
       // Here you can do any higher level native things you might need.
       this.statusBar.styleDefault();
       this.splashScreen.hide();
+      this.angularFireAuth.auth.onAuthStateChanged(function(user) {
+
+        if(user){
+          this.rootPage = 'HomePage';
+        }
+        else {
+          this.rootPage = 'LoginPage';
+        }
+      
+      }
+      
+      );
     });
   }
 
+
   openPage(page) {
-    // Reset the content nav to have just this page
-    // we wouldn't want the back button to show in this scenario
-    this.nav.setRoot(page.component);
+     // close the menu when clicking a link from the menu
+     this.menu.close();
+     // navigate to the new page if it is not the current page
+
+     if(page.component == 'LoginPage'){
+       this.storage.clear();
+       this.angularFireAuth.auth.signOut().then( () => {
+        this.nav.setRoot(page.component);
+       });
+     } else {
+      this.nav.setRoot(page.component);
+     }
   }
 }

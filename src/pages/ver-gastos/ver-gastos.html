@@ -1,0 +1,29 @@
+<!--
+  Generated template for the VerGastosPage page.
+
+  See http://ionicframework.com/docs/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<ion-header>
+
+  <ion-navbar>
+    <ion-title>Ver Gastos</ion-title>
+  </ion-navbar>
+
+</ion-header>
+
+
+<ion-content padding>
+
+    <ion-list>
+        <ion-list-header>
+          Gastos:
+        </ion-list-header>
+        
+        <ion-item *ngFor="let gasto of gastosLista$ | async"
+          detail-push navPush="ViewSongPage"[navParams]="{gasto:gasto}">
+          {{gasto.nombre}}
+        </ion-item>
+      </ion-list>
+
+</ion-content>
