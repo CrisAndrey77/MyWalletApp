@@ -8,6 +8,8 @@ import { Storage } from '@ionic/storage';
 import {HomePage} from '../pages/home/home';
 import {ListPage} from '../pages/list/list';
 import {GraficosPage} from '../pages/graficos/graficos';
+import {OpcionesPage} from "../pages/opciones/opciones";
+
 //import {MasVisitadosPage} from '../pages/mas-visitados/mas-visitados';
 
 
@@ -36,6 +38,7 @@ export class MyApp {
       {title: 'Detalles de la cuenta', component: 'VerUsuarioPage'},
       {title: 'Graficos', component: 'GraficosPage'},
       {title: 'Logout', component: 'LoginPage'},
+      {title: 'Opciones', component: 'OpcionesPage'}
       //{title: 'Más visitados', component: MasVisitadosPage}
     ];
 
