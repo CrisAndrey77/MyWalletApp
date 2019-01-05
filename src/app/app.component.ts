@@ -5,6 +5,11 @@ import {SplashScreen} from '@ionic-native/splash-screen';
 import {AngularFireAuth} from 'angularfire2/auth';
 import { Storage } from '@ionic/storage';
 
+import {HomePage} from '../pages/home/home';
+import {ListPage} from '../pages/list/list';
+import {GraficosPage} from '../pages/graficos/graficos';
+//import {MasVisitadosPage} from '../pages/mas-visitados/mas-visitados';
+
 
 @Component({
   templateUrl: 'app.html'
@@ -29,6 +34,7 @@ export class MyApp {
       {title: 'Home', component: 'HomePage'},
       {title: 'List', component: 'ListPage'},
       {title: 'Detalles de la cuenta', component: 'VerUsuarioPage'},
+      {title: 'Graficos', component: 'GraficosPage'},
       {title: 'Logout', component: 'LoginPage'},
       //{title: 'Más visitados', component: MasVisitadosPage}
     ];
