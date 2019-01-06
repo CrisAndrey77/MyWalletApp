@@ -1,38 +1,50 @@
 import { Component } from '@angular/core';
 import { NavController, NavParams, IonicPage  } from 'ionic-angular';
 
+import { Establecimiento } from '../../app/Clases/Establecimiento';
+
 @IonicPage()
 @Component({
   selector: 'page-list',
   templateUrl: 'list.html'
 })
+
 export class ListPage {
   selectedItem: any;
-  icons: string[];
-  items: Array<{title: string, note: string, icon: string}>;
+  items: Array<{establecimiento:Establecimiento, total:number, categoria:string}>;
 
   constructor(public navCtrl: NavController, public navParams: NavParams) {
-    // If we navigated to this page, we will have an item available as a nav param
-    this.selectedItem = navParams.get('item');
-
-    // Let's populate this page with some filler content for funzies
-    this.icons = ['flask', 'wifi', 'beer', 'football', 'basketball', 'paper-plane',
-    'american-football', 'boat', 'bluetooth', 'build'];
 
     this.items = [];
-    for (let i = 1; i < 11; i++) {
-      this.items.push({
-        title: 'Item ' + i,
-        note: 'This is item #' + i,
-        icon: this.icons[Math.floor(Math.random() * this.icons.length)]
+    this.items.push({
+        establecimiento : new Establecimiento('McDonalds San José', '0' ,50),
+        total: 25000,
+        categoria: 'Comida'
       });
-    }
-  }
 
-  itemTapped(event, item) {
-    // That's right, we're pushing to ourselves!
-    this.navCtrl.push(ListPage, {
-      item: item
-    });
+
+    this.items.push({
+        establecimiento : new Establecimiento('Subway', '0' ,25),
+        total: 15000,
+        categoria: 'Comida'
+      });
+
+    this.items.push({
+        establecimiento : new Establecimiento('Taco Bell', '0' ,10),
+        total: 3500,
+        categoria: 'Comida'
+      });
+
+    this.items.push({
+        establecimiento : new Establecimiento('NovaCinemas Ciudad del Este', '0' ,15),
+        total: 6400,
+        categoria: 'Entretenimiento'
+      });
+
+    this.items.push({
+        establecimiento : new Establecimiento('Cinépolis', '0' ,7),
+        total: 3000,
+        categoria: 'Entretenimiento'
+      });
   }
 }

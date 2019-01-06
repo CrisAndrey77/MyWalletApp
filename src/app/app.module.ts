@@ -16,13 +16,9 @@ import {SplashScreen} from '@ionic-native/splash-screen';
 import { Geolocation } from '@ionic-native/geolocation';
 import { UsuariosServicio } from '../services/usuarios.service';
 import { IonicStorageModule } from '@ionic/storage';
-//import {MasVisitadosPage} from "../pages/mas-visitados/mas-visitados";
-//import {ProviderUsuarioProvider} from '../providers/provider-usuario/provider-usuario';
-
 @NgModule({
   declarations: [
     MyApp,
-    //MasVisitadosPage
   ],
   imports: [
     BrowserModule,
@@ -30,19 +26,17 @@ import { IonicStorageModule } from '@ionic/storage';
     IonicStorageModule.forRoot(),
     AngularFireModule.initializeApp(FIREBASE_CONFIG),
     AngularFireDatabaseModule,
-    AngularFireAuthModule
+    AngularFireAuthModule,
   ],
   bootstrap: [IonicApp],
   entryComponents: [
     MyApp,
-    //MasVisitadosPage
   ],
   providers: [
     StatusBar,
     SplashScreen,
     Geolocation,
     {provide: ErrorHandler, useClass: IonicErrorHandler},
-    //ProviderUsuarioProvider
     AngularFireAuth,
     UsuariosServicio
   ]
