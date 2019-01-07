@@ -44,4 +44,8 @@ export class PagoPremiunPage {
     this.ocultar3 = !this.ocultar3;
   }
 
+  goPremiun() {
+    this.navCtrl.push('PremiunPage');
+  }
+
 }
