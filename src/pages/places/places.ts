@@ -97,6 +97,16 @@ export class PlacesPage {
       'pet_store','pharmacy','physiotherapist','plumber','police','post_office','real_estate_agency','restaurant','roofing_contractor','rv_park','school','shoe_store','shopping_mall',
       'spa','stadium','storage','store','subway_station','supermarket','synagogue','taxi_stand','train_station','transit_station','travel_agency','veterinary_care','zoo',
       ];
+
+      var arrayAux = [];
+
+      for(let a of this.autocompleteItems){
+        if(a.includes(this.autocomplete.input)){
+          arrayAux.push(a);
+        }
+      }
+
+      this.autocompleteItems = arrayAux;
       
   }
 

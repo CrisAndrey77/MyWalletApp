@@ -8,13 +8,25 @@
 </ion-header>
 
 <ion-content padding>
-  <button ion-button secondary menuToggle>Toggle Menu</button>
   <button ion-button (click)='openSeachPlaces()'>Registrar nuevo gasto</button>
-  <button ion-button (click)='openPremiun()'>Hazte Premiun</button>
+  <button ion-button (click)='openPremiun()'>Hazte Premium</button>
 
   <div *ngIf="email">
       {{email}}
       </div>
+
+
+      <ion-card>
+    
+        <ion-card-header>
+          Gráfico de dona
+        </ion-card-header>
+    
+        <ion-card-content>
+          <canvas #doughnutCanvas></canvas> 
+        </ion-card-content>
+    
+      </ion-card>
 
 
 </ion-content>
