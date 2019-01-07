@@ -22,7 +22,10 @@ export class HomePage {
   }
 
   openSeachPlaces() {
-    this.navCtrl.push('PlacesPage')
+    this.navCtrl.push('PlacesPage');
   }
 
+  openPremiun(){
+    this.navCtrl.push('PremiunPage');
+  }
 }

@@ -1,0 +1,80 @@
+page-premiun {
+
+    .fontPremiun{
+      background-color: rgba(82,86,97,1);
+    }
+    
+    #choose{
+      text-align: center;
+      margin-top: 50px;
+      
+    }
+    
+    ion-grid{
+      margin-top: 50px;
+    }
+    
+    ion-col{
+        
+      margin: 25px 25px 25px 25px;
+    
+    }
+    
+    
+    ion-card {
+      position: relative;
+      text-align: center;
+      height: 450px;
+      width: 100%;
+      margin: 25px 25px 25px 25px;
+    }
+    
+    .info{
+      padding-top: 10%;
+    }
+    
+    .card-title {
+      position: relative;
+      top: 20%;
+      font-size: 2.0em;
+      text-align: center;
+      width: 100%;
+      color: #fff;
+    }
+    
+    
+    
+    .wrapper {
+        display: grid;
+        grid-template-columns: repeat(8, 1fr);
+        grid-gap: 10px;
+        grid-auto-rows: 100px;
+        grid-template-areas: 
+          "a a a b b b"
+          "a a a b b b"
+          "a a a b b b"
+          "a a a b b b"
+          "a a a b b b";
+        align-items: center;
+      }
+      
+      .item1 {
+        grid-area: a;
+      }
+      .item2 {
+        grid-area: b;
+      }
+    
+      ion-icon{
+        color:rgba(82,86,97,1);
+      }
+    
+      ion-slides{
+        padding-top: 100px 100px 100px 100px;
+        margin-top:40px;
+        height: 580px;
+        width: 100%;
+      }
+  
+  }
+  
