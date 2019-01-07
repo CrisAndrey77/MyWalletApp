@@ -48,4 +48,14 @@ export class UsuariosServicio {
         return(this.filtrarGastoPorCategoria(email,categoria));
     }
 
+
+    obtenerGastoPorUsuario2(ctxt: string): any {
+        return(this.filtrarStringEmail2(ctxt));
+    }
+
+    filtrarStringEmail2(email: string) {
+        return this.db.list('/gasto-lista', ref => ref.orderByChild('email_usuario').equalTo(email));
+    }
+
+
 }

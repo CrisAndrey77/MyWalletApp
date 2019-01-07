@@ -5,6 +5,7 @@ import { Observable } from 'rxjs/Observable'
 import { Gasto } from '../../models/gasto.model'
 import { UsuariosServicio } from '../../services/usuarios.service';
 import { Storage } from '@ionic/storage';
+import { Subscription } from 'rxjs/Subscription';
 /**
  * Generated class for the GraficosPage page.
  *
@@ -20,35 +21,60 @@ import { Storage } from '@ionic/storage';
 export class GraficosPage {
 
   @ViewChild('barCanvas') barCanvas;
-  @ViewChild('lineCanvas') lineCanvas;
-  @ViewChild('pieCanvas') pieCanvas;
+  //@ViewChild('lineCanvas') lineCanvas;
+  //@ViewChild('pieCanvas') pieCanvas;
   @ViewChild('doughnutCanvas') doughnutCanvas;
 
   barChart: any;
-  lineChart: any;
+ // lineChart: any;
   pieChart: any;
   doughnutChart: any; 
 
-  gastosLista:Gasto[];
+  arrayGastos: Gasto[];
+  listaGastosSubscription: Subscription;
+  categorias = new Array();
+  valores = new Array();
 
   constructor(public navCtrl: NavController, public navParams: NavParams,
     private usuariosServicio: UsuariosServicio,
     private storage: Storage) {
   }
 
-  ionViewDidLoad() {
+  ionViewWillLoad() {
     console.log('ionViewDidLoad GraficosPage');
+    var email;
+    this.storage.get('email').then((val) => {
+      email = val;
+
+      this.listaGastosSubscription =this.usuariosServicio.obtenerGastoPorUsuario2(email).snapshotChanges().map(changes => {
+        return changes.map(c => ({
+          key: c.payload.key, ...c.payload.val()
+        }))
+      })
+      .subscribe(gas => {
+        this.arrayGastos = gas;
+        
+        for(let g of this.arrayGastos){
+          this.categorias.push(g.categoria);
+          this.valores.push(+g.valor);
+        }
+        this.getBarChart();
+        //this.getPieChart();
+        this.getDoughnutChart();
+      })
+
+
+    });
   }
 
   ngAfterViewInit(){
     setTimeout(()=>{
       this.barChart = this.getBarChart();
-      this.lineChart = this.getLineChart();
-
+      //this.lineChart = this.getLineChar();
     }, 150)
 
     setTimeout(()=> {
-      this.pieCanvas = this.getPieChart();
+      //this.pieCanvas = this.getPieChart();
       this.doughnutChart = this.getDoughnutChart();
     }, 250)
   }
@@ -62,10 +88,10 @@ export class GraficosPage {
 
     getBarChart(){
       const data = {
-        labels: ['Red', 'Blue', 'Yellow', 'Green', 'Purple'],
+        labels: this.categorias,
         datasets: [{
-          label: 'numero de votos',
-          data: [12, 4, 23, 15, 90, 15],
+          label: 'Gastos Realizados',
+          data: this.valores,
           backgroundColor: [
             'rgb(255,0,0)',
             'rgb(20,0,255)',
@@ -90,20 +116,20 @@ export class GraficosPage {
 
 
   
-    getLineChart(){
+    /*getLineChart(){
       const data = {
-        labels: ['Enero', 'Febrero', 'Marzo', 'Abril'],
+        labels: this.categorias,
         datasets: [{
           label: 'Menu Dataset',
           fil: false,
           lineTension : 0.1,
           backgroundColor: 'rgb(0,170,255)',
           borderColor: 'rgb(231, 205, 35)',
-          borderCapStyle: 'butt',
+          borderCapStyle: 'butt',em
           borderJoinStyle: 'miter',
           pointRadius: 1,
           pointHitRadius: 10,
-          data: [20, 15, 98, 4],
+          data: this.valores,
           scanGaps: false,          
         },{
           label: 'Menu Segundo Dataset',
@@ -121,26 +147,26 @@ export class GraficosPage {
       ]
       }
       return this.getChart(this.lineCanvas.nativeElement, 'line', data);
-    }
+    }*/
 
-    getPieChart(){
+    /*getPieChart(){
       const data = {
-        labels: ['Red', 'Blue', 'Yellow'],
+        labels: this.categorias,
         datasets: [{
-          data: [300, 75, 224],
+          data: this.valores,
           backgroundColor: ['rgb(200, 6, 0)', 'rgb(36, 0, 255)', 'rgb(242, 255, 0)']
       }]
     }
     return this.getChart(this.pieCanvas.nativeElement, 'pie', data);
-  }
+  }*/
 
 
   getDoughnutChart(){
     const data = {
-      labels: ['Red', 'Blue', 'Yellow'],
+      labels: this.categorias,
       datasets: [{
         label: 'Prueba Chart',
-        data: [12, 65, 32],
+        data: this.valores,
         backgroundColor: [
           'rgb(0, 244, 97)',
           'rgb(37, 39, 43)',
