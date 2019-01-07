@@ -1,0 +1,51 @@
+<!--
+  Generated template for the PremiunPage page.
+
+  See http://ionicframework.com/docs/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<ion-header>
+
+</ion-header>
+
+
+<ion-content padding class="fontPremiun">-->
+
+<!--2 SLIDES -->
+
+  <div id="choose">
+      <div class="card-title">
+        Cámbiate a Premiun 
+        <br>
+        Elige el plan que más te convenga
+      </div>
+  </div>
+  
+  <ion-slides effect = "coverflow" slidesPerView="1.100">
+      <ion-slide style="background-color: rgba(102,193,114,1);">
+          <div class="slide-header">
+            Plan mensual
+          </div>
+            <h1>$2.99</h1>
+          <div class="slide-items">
+              <p><ion-icon name="checkmark"></ion-icon> Obten más estadística de tus gastos</p>
+              <p><ion-icon name="checkmark"></ion-icon>  Sin anuncios</p>
+              <p><ion-icon name="checkmark"></ion-icon> Revisa el historial de tus gastos anteriores</p>
+          </div>
+          <button ion-button (click)='goPremiunPago()' style="background-color:rgba(82,86,97,1);" round>SUSCRIBIRME AHORA</button>
+      </ion-slide>
+
+    <ion-slide style="background-color:rgba(215,236,141,1);">
+      <div class="slide-header">
+        Plan anual
+      </div>
+        <h1>$29.99</h1>
+      <div class="slide-items">
+          <p><ion-icon name="checkmark"></ion-icon> Obten más estadística de tus gastos</p>
+          <p><ion-icon name="checkmark"></ion-icon>  Sin anuncios</p>
+          <p><ion-icon name="checkmark"></ion-icon> Revisa el historial de tus gastos anteriores</p>
+      </div>
+      <button ion-button (click)='goPremiunPago()' style="background-color:rgba(82,86,97,1);" round>SUSCRIBIRME AHORA</button>
+    </ion-slide>
+  </ion-slides> 
+</ion-content>
