@@ -37,6 +37,7 @@ export class ListPage {
 
           //Si encuentra una categoria existente en el array, solamente se le suma
           //el dinero al valor de la categoria existente
+          console.log(this.arrayGastos);
           for (let gasto of this.arrayGastos) {
             this.categorias.push(gasto.categoria);
             if (this.establecimientos.indexOf(gasto.idEstablecimiento) > -1) {
@@ -47,18 +48,31 @@ export class ListPage {
               this.valores.push(+gasto.valor);
             }
             let tamano: number = this.establecimientos.length;
-            for (let i: number = 0; i < tamano && i < 10; i++) {
+            for (let i: number = 0; i < tamano; i++) {
               this.items.push({
                 establecimiento: this.establecimientos[i],
                 categoria: this.categorias[i],
                 valor: this.valores[i]
               });
+              console.log(i);
+              this.items = this.ordenaListaPorRanking(this.items);
             }
           }
         })
     });
 
   }
-
+  ordenaListaPorRanking(lista: Array<{establecimiento: string, categoria: string, valor: number}>) {
+    lista.sort((establecimientoA, establecimientoB) => {
+      if (establecimientoA.valor > establecimientoB.valor) {
+        return 1;
+      }
+      if (establecimientoA.valor < establecimientoB.valor) {
+        return 1;
+      }
+      return 0;
+    });
+    return lista;
+  }
 
 }
