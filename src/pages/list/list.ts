@@ -1,8 +1,12 @@
-import { Component } from '@angular/core';
-import { NavController, NavParams, IonicPage  } from 'ionic-angular';
+import {Component} from '@angular/core';
+import {NavController, NavParams, IonicPage} from 'ionic-angular';
+import {Gasto} from "../../models/gasto.model";
+import {UsuariosServicio} from "../../services/usuarios.service";
+import {Storage} from '@ionic/storage';
+import {Subscription} from "rxjs";
 
-import { Establecimiento } from '../../app/Clases/Establecimiento';
 
+//Basado en la pagina de graficos para obtener la información.
 @IonicPage()
 @Component({
   selector: 'page-list',
@@ -10,41 +14,51 @@ import { Establecimiento } from '../../app/Clases/Establecimiento';
 })
 
 export class ListPage {
-  selectedItem: any;
-  items: Array<{establecimiento:Establecimiento, total:number, categoria:string}>;
+  categorias = new Array();
+  establecimientos = new Array();
+  valores = new Array();
+  listaGastosSubscription: Subscription;
+  arrayGastos: Gasto[];
+  items: Array<{ establecimiento: string, categoria: string, valor: number }> = new Array<{establecimiento: string, categoria: string, valor: number}>();
 
-  constructor(public navCtrl: NavController, public navParams: NavParams) {
+  constructor(public navCtrl: NavController, public navParams: NavParams,
+              private usuariosServicio: UsuariosServicio, private storage: Storage) {
+    this.storage.get('email').then((valor) => {
+      let email = valor;
 
-    this.items = [];
-    this.items.push({
-        establecimiento : new Establecimiento('McDonalds San José', '0' ,50),
-        total: 25000,
-        categoria: 'Comida'
-      });
+      this.listaGastosSubscription = this.usuariosServicio.obtenerGastoPorUsuario2(email)
+        .snapshotChanges().map(changes => {
+          return changes.map(c => ({
+            key: c.payload.key, ...c.payload.val()
+          }))
+        })
+        .subscribe(gasto => {
+          this.arrayGastos = gasto;
 
+          //Si encuentra una categoria existente en el array, solamente se le suma
+          //el dinero al valor de la categoria existente
+          for (let gasto of this.arrayGastos) {
+            this.categorias.push(gasto.categoria);
+            if (this.establecimientos.indexOf(gasto.idEstablecimiento) > -1) {
+              this.valores[this.establecimientos.indexOf(gasto.idEstablecimiento)] =
+                +this.valores[this.establecimientos.indexOf(gasto.idEstablecimiento)] + +gasto.valor;
+            } else {
+              this.establecimientos.push(gasto.idEstablecimiento);
+              this.valores.push(+gasto.valor);
+            }
+            let tamano: number = this.establecimientos.length;
+            for (let i: number = 0; i < tamano && i < 10; i++) {
+              this.items.push({
+                establecimiento: this.establecimientos[i],
+                categoria: this.categorias[i],
+                valor: this.valores[i]
+              });
+            }
+          }
+        })
+    });
 
-    this.items.push({
-        establecimiento : new Establecimiento('Subway', '0' ,25),
-        total: 15000,
-        categoria: 'Comida'
-      });
-
-    this.items.push({
-        establecimiento : new Establecimiento('Taco Bell', '0' ,10),
-        total: 3500,
-        categoria: 'Comida'
-      });
-
-    this.items.push({
-        establecimiento : new Establecimiento('NovaCinemas Ciudad del Este', '0' ,15),
-        total: 6400,
-        categoria: 'Entretenimiento'
-      });
-
-    this.items.push({
-        establecimiento : new Establecimiento('Cinépolis', '0' ,7),
-        total: 3000,
-        categoria: 'Entretenimiento'
-      });
   }
+
+
 }
