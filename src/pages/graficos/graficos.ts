@@ -54,9 +54,16 @@ export class GraficosPage {
       .subscribe(gas => {
         this.arrayGastos = gas;
         
+        //Si encuentra una categoria existente en el array, solamente se le suma
+        //el dinero al valor de la categoria existente
         for(let g of this.arrayGastos){
-          this.categorias.push(g.categoria);
-          this.valores.push(+g.valor);
+          if(this.categorias.indexOf(g.categoria) > -1){
+            this.valores[this.categorias.indexOf(g.categoria)] = 
+            +this.valores[this.categorias.indexOf(g.categoria)] + +g.valor;
+          } else {
+            this.categorias.push(g.categoria);
+            this.valores.push(+g.valor);
+          }
         }
         this.getBarChart();
         //this.getPieChart();
