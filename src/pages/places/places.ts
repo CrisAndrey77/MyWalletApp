@@ -125,7 +125,8 @@ export class PlacesPage {
         var lugar = {
           name : place.name,
           vicinity : place.vicinity,
-          rating : place.rating
+          rating : place.rating,
+          types: place.types
         }
         this.storage.set('place', lugar);
         this.navCtrl.push('RegistrarEstablecimientoPage');

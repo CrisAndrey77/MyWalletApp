@@ -31,12 +31,21 @@ export class UsuariosServicio {
         return this.db.list('/gasto-lista', ref => ref.orderByChild('email_usuario').equalTo(email));
     }
 
+    filtrarGastoPorCategoria(email: string, categoria: string){
+        var d = this.db.list('/gasto-lista', ref => ref.orderByChild('email_usuario').equalTo(email));
+        return d.query.orderByChild('categoria').equalTo(categoria);
+    }
+
     obtenerUsuarioPorEmail(ctxt: string): any {
         return(this.filtrarString(ctxt));
     }
 
     obtenerGastoPorUsuario(ctxt: string): any {
         return(this.filtrarStringEmail(ctxt));
+    }
+
+    obtenerGastoPorCategoria(email: string, categoria: string){
+        return(this.filtrarGastoPorCategoria(email,categoria));
     }
 
 }

@@ -33,6 +33,15 @@
           </ion-textarea>
       </ion-item>
 
+      <ion-item >
+        <ion-label>Categoria: </ion-label>
+        <ion-select [(ngModel)]="categoria">
+            <ion-option *ngFor="let categoria of categorias" [value]="categoria">
+              {{categoria}}
+            </ion-option>
+        </ion-select>
+    </ion-item>
+
       <ion-item>
           <ion-label>Titulo del gasto: </ion-label>
             <ion-input [(ngModel)]="gasto.nombre">

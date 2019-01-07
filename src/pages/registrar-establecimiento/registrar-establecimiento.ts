@@ -22,17 +22,22 @@ export class RegistrarEstablecimientoPage {
   place:any ={
     name: '',
     vicinity:'',
-    rating:''
+    rating:'',
+    types:[]
   };
 
   gasto:Gasto={
     nombre: '',
     email_usuario:'',
     descripcion: '',
+    categoria:'',
     valor: 0,
     idEstablecimiento: '',
     fecha: ''
   }
+
+  categorias: any;
+  categoria:any;
 
   constructor(public navCtrl: NavController, public navParams: NavParams,
     private storage: Storage,
@@ -47,6 +52,7 @@ export class RegistrarEstablecimientoPage {
       if(val && !val.rating){
         this.place.rating = 'Sin especificar';
       }
+      this.categorias = val.types;
     });
   }
 
@@ -54,7 +60,7 @@ export class RegistrarEstablecimientoPage {
     this.storage.get('email').then((val) => {
       this.gasto.email_usuario = val;
       this.gasto.idEstablecimiento = this.place.name;
-
+      this.gasto.categoria = this.categoria;
       //calculando fecha actual
       let dateFormat = require('dateformat');
       let now = new Date();

@@ -1,6 +1,10 @@
 import { Component, ViewChild } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import chartJs from 'chart.js';
+import { Observable } from 'rxjs/Observable'
+import { Gasto } from '../../models/gasto.model'
+import { UsuariosServicio } from '../../services/usuarios.service';
+import { Storage } from '@ionic/storage';
 /**
  * Generated class for the GraficosPage page.
  *
@@ -25,7 +29,11 @@ export class GraficosPage {
   pieChart: any;
   doughnutChart: any; 
 
-  constructor(public navCtrl: NavController, public navParams: NavParams) {
+  gastosLista:Gasto[];
+
+  constructor(public navCtrl: NavController, public navParams: NavParams,
+    private usuariosServicio: UsuariosServicio,
+    private storage: Storage) {
   }
 
   ionViewDidLoad() {
