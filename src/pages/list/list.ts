@@ -14,65 +14,68 @@ import {Subscription} from "rxjs";
 })
 
 export class ListPage {
-  categorias = new Array();
-  establecimientos = new Array();
-  valores = new Array();
   listaGastosSubscription: Subscription;
-  arrayGastos: Gasto[];
-  items: Array<{ establecimiento: string, categoria: string, valor: number }> = new Array<{establecimiento: string, categoria: string, valor: number}>();
+  arrayGastos: Gasto[] = new Array();
+  items: Array<{ categoria: string, valor: number, entrada:number }> = new Array<{categoria: string, valor: number, entrada:number}>();
 
   constructor(public navCtrl: NavController, public navParams: NavParams,
               private usuariosServicio: UsuariosServicio, private storage: Storage) {
-    this.storage.get('email').then((valor) => {
-      let email = valor;
-
-      this.listaGastosSubscription = this.usuariosServicio.obtenerGastoPorUsuario2(email)
-        .snapshotChanges().map(changes => {
-          return changes.map(c => ({
-            key: c.payload.key, ...c.payload.val()
-          }))
-        })
-        .subscribe(gasto => {
-          this.arrayGastos = gasto;
-
-          //Si encuentra una categoria existente en el array, solamente se le suma
-          //el dinero al valor de la categoria existente
-          console.log(this.arrayGastos);
-          for (let gasto of this.arrayGastos) {
-            this.categorias.push(gasto.categoria);
-            if (this.establecimientos.indexOf(gasto.idEstablecimiento) > -1) {
-              this.valores[this.establecimientos.indexOf(gasto.idEstablecimiento)] =
-                +this.valores[this.establecimientos.indexOf(gasto.idEstablecimiento)] + +gasto.valor;
-            } else {
-              this.establecimientos.push(gasto.idEstablecimiento);
-              this.valores.push(+gasto.valor);
-            }
-            let tamano: number = this.establecimientos.length;
-            for (let i: number = 0; i < tamano; i++) {
-              this.items.push({
-                establecimiento: this.establecimientos[i],
-                categoria: this.categorias[i],
-                valor: this.valores[i]
-              });
-              console.log(i);
-              this.items = this.ordenaListaPorRanking(this.items);
-            }
-          }
-        })
-    });
-
-  }
-  ordenaListaPorRanking(lista: Array<{establecimiento: string, categoria: string, valor: number}>) {
-    lista.sort((establecimientoA, establecimientoB) => {
-      if (establecimientoA.valor > establecimientoB.valor) {
-        return 1;
-      }
-      if (establecimientoA.valor < establecimientoB.valor) {
-        return 1;
-      }
-      return 0;
-    });
-    return lista;
+                this.obtieneArrayGastos();
   }
 
+  obtieneArrayGastos(){
+    this.storage.get('email').then(
+      (valor) => {
+        let email = valor;
+        this.listaGastosSubscription = this.usuariosServicio.obtenerGastoPorUsuario2(email)
+          .snapshotChanges().map(changes => {
+            return changes.map(c => ({
+              key: c.payload.key, ...c.payload.val()
+              }))
+          })
+          .subscribe(gasto => {
+            this.arrayGastos = gasto;             
+            this.ordenaListaPorRankingEstablecimiento();
+            })});
+            
+  }
+
+  ordenaListaPorRankingEstablecimiento() {
+    for (let gasto of this.arrayGastos) {
+      let tempIndice:number = this.buscoIndiceCategoriaEnLista(this.items, 
+        gasto.categoria);
+      console.log(tempIndice);
+      if (tempIndice > -1) {
+        this.items[tempIndice].valor = + this.items[tempIndice].valor + +gasto.valor;
+        this.items[tempIndice].entrada = + this.items[tempIndice].entrada + + 1;
+      } else {
+        this.items.push({
+          categoria: gasto.categoria,
+          valor: Number(gasto.valor),
+          entrada: 1
+        })
+      }
+    }
+    console.log(this.items);
+    
+      this.items.sort((categoriaA, categoriaB) => {
+        if (categoriaA.valor > categoriaB.valor) {
+          return -1;
+        }
+        if (categoriaA.valor < categoriaB.valor) {
+          return 1;
+        }
+        return 0;
+      });
+  }
+
+  buscoIndiceCategoriaEnLista(lista, atributoABuscar:string){
+    let tamano: number = lista.length;
+    for(let i:number = 0; i<tamano; i++){
+      if(lista[i].categoria === atributoABuscar){
+        return i;
+      }
+    }
+    return -1;
+  }
 }
