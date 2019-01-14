@@ -1,5 +1,5 @@
 import {Component} from '@angular/core';
-import {NavController, NavParams, IonicPage} from 'ionic-angular';
+import {NavController, NavParams, IonicPage, LoadingController} from 'ionic-angular';
 import {Gasto} from "../../models/gasto.model";
 import {UsuariosServicio} from "../../services/usuarios.service";
 import {Storage} from '@ionic/storage';
@@ -18,12 +18,23 @@ export class ListPage {
   arrayGastos: Gasto[] = new Array();
   items: Array<{ categoria: string, valor: number, entrada:number }> = new Array<{categoria: string, valor: number, entrada:number}>();
 
-  constructor(public navCtrl: NavController, public navParams: NavParams,
-              private usuariosServicio: UsuariosServicio, private storage: Storage) {
-                this.obtieneArrayGastos();
+  constructor(public navCtrl: NavController, 
+    public navParams: NavParams,
+    private usuariosServicio: UsuariosServicio, 
+    private storage: Storage,
+    public loadingCtrl: LoadingController) {
+      this.obtieneArrayGastos();
   }
 
   obtieneArrayGastos(){
+    let carga = this.loadingCtrl.create({
+      content: 'Recuperando datos, por favor espere',
+      dismissOnPageChange: true
+    });
+    carga.present();
+    setTimeout(() =>{
+      carga.dismiss();
+    }, 5000);
     this.storage.get('email').then(
       (valor) => {
         let email = valor;
@@ -36,6 +47,8 @@ export class ListPage {
           .subscribe(gasto => {
             this.arrayGastos = gasto;             
             this.ordenaListaPorRankingEstablecimiento();
+            this.aplicoTamanoLista();
+            carga.dismiss();
             })});
             
   }
@@ -56,7 +69,7 @@ export class ListPage {
         })
       }
     }
-    console.log(this.items);
+
     
       this.items.sort((categoriaA, categoriaB) => {
         if (categoriaA.valor > categoriaB.valor) {
@@ -77,5 +90,12 @@ export class ListPage {
       }
     }
     return -1;
+  }
+
+  aplicoTamanoLista(){
+    let tamano:number = this.items.length;
+    if(tamano > 10){
+      this.items = this.items.splice(10, tamano);
+    }
   }
 }
