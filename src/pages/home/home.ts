@@ -1,5 +1,5 @@
 import { Component, ViewChild } from '@angular/core';
-import { IonicPage, NavController, NavParams, PopoverController } from 'ionic-angular';
+import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { AngularFireAuth} from 'angularfire2/auth';
 import { Storage } from '@ionic/storage';
 
@@ -8,7 +8,6 @@ import { Observable } from 'rxjs/Observable'
 import { Gasto } from '../../models/gasto.model'
 import { UsuariosServicio } from '../../services/usuarios.service';
 import { Subscription } from 'rxjs/Subscription';
-import {PopOverUsuarioComponent} from '../../components/pop-over-usuario/pop-over-usuario';
 
 @IonicPage()
 @Component({
@@ -34,8 +33,7 @@ export class HomePage {
 
   constructor(public navCtrl: NavController, public navParams: NavParams,
     public angularFireAuth: AngularFireAuth, private storage: Storage,
-    private usuariosServicio: UsuariosServicio,
-    public popoverCtrl:PopoverController) {
+    private usuariosServicio: UsuariosServicio) {
     //this.email = navParams.get('email');
 
     storage.get('email').then((val) => {
@@ -128,11 +126,4 @@ export class HomePage {
       };
       return this.getChart(this.doughnutCanvas.nativeElement, 'doughnut', data, options);
     }
-
-    presentaPopover(event){
-      let popover = this.popoverCtrl.create(PopOverUsuarioComponent);
-      popover.present({
-        ev: event
-      });
-    }
-}
+  }

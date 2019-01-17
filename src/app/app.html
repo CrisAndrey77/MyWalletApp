@@ -3,8 +3,14 @@
   
   <ion-header>
     <ion-toolbar color="primary">
-      <ion-title>Menú</ion-title>
+      <ion-title>
+        <button ion-item color="primary" (click)="verInfoUsuario()">
+            <ion-icon name="contact"></ion-icon>
+            Usuario
+          </button>
+      </ion-title>
     </ion-toolbar>
+      
   </ion-header>
 
   <ion-content>
@@ -15,6 +21,12 @@
     </ion-list>
   </ion-content>
 
+  <ion-footer no-border>
+    <button ion-item (click)="cierraSesion()">
+        <ion-icon name="exit"></ion-icon>
+        Cerrar sesión
+    </button>
+  </ion-footer>
 </ion-menu>
 
 <!-- Disable swipe-to-go-back because it's poor UX to combine STGB with side menus -->

@@ -4,11 +4,6 @@
       <ion-icon name="menu"></ion-icon>
     </button>
     <ion-title>Home</ion-title>
-    <ion-buttons end>
-        <button ion-button icon-only (click)="presentaPopover($event)">
-          <ion-icon name="more"></ion-icon>
-        </button>
-      </ion-buttons>
   </ion-navbar>
 </ion-header>
 
@@ -21,6 +16,7 @@
       {{email}}
       </div>
 -->
+<button block id="botonPremium" ion-button (click)='openPremiun()'>Hazte Premium</button>
 
       <ion-card color="primary" id="seccionGrafico">
     
@@ -37,7 +33,7 @@
 
     </div>
 
-      <button block id="botonPremium" ion-button (click)='openPremiun()'>Hazte Premium</button>
+      
 
       <ion-fab bottom right>
           <button ion-fab color="light" (click)='openSeachPlaces()'>

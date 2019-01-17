@@ -4,7 +4,6 @@ import {Gasto} from "../../models/gasto.model";
 import {UsuariosServicio} from "../../services/usuarios.service";
 import {Storage} from '@ionic/storage';
 import {Subscription} from "rxjs";
-import { PopOverUsuarioComponent } from '../../components/pop-over-usuario/pop-over-usuario';
 
 
 //Basado en la pagina de graficos para obtener la información.
@@ -24,8 +23,7 @@ export class ListPage {
     public navParams: NavParams,
     private usuariosServicio: UsuariosServicio, 
     private storage: Storage,
-    public loadingCtrl: LoadingController,
-    public popoverCtrl: PopoverController) {
+    public loadingCtrl: LoadingController) {
       this.obtieneArrayGastos();
   }
 
@@ -99,12 +97,5 @@ export class ListPage {
     if(tamano > 10){
       this.items = this.items.splice(10, tamano);
     }
-  }
-
-  presentaPopover(event){
-    let popover = this.popoverCtrl.create(PopOverUsuarioComponent);
-    popover.present({
-      ev: event
-    });
   }
 }

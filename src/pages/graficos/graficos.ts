@@ -6,7 +6,6 @@ import { Gasto } from '../../models/gasto.model'
 import { UsuariosServicio } from '../../services/usuarios.service';
 import { Storage } from '@ionic/storage';
 import { Subscription } from 'rxjs/Subscription';
-import { PopOverUsuarioComponent} from '../../components/pop-over-usuario/pop-over-usuario';
 
 /**
  * Generated class for the GraficosPage page.
@@ -39,8 +38,7 @@ export class GraficosPage {
 
   constructor(public navCtrl: NavController, public navParams: NavParams,
     private usuariosServicio: UsuariosServicio,
-    private storage: Storage,
-    public popoverCtrl: PopoverController) {
+    private storage: Storage) {
   }
 
   ionViewWillLoad() {
@@ -195,12 +193,5 @@ export class GraficosPage {
       }]
     }
     return this.getChart(this.doughnutCanvas.nativeElement, 'doughnut', data);
-  }
-
-  presentaPopover(event){
-    let popover = this.popoverCtrl.create(PopOverUsuarioComponent);
-    popover.present({
-      ev: event
-    });
   }
 }

@@ -9,7 +9,8 @@ import {HomePage} from '../pages/home/home';
 import {ListPage} from '../pages/list/list';
 import {GraficosPage} from '../pages/graficos/graficos';
 import {OpcionesPage} from "../pages/opciones/opciones";
-
+import { LoginPage } from "../pages/login/login";
+import { VerUsuarioPage } from "../pages/ver-usuario/ver-usuario";
 
 @Component({
   templateUrl: 'app.html'
@@ -32,10 +33,10 @@ export class MyApp {
     // used for an example of ngFor and navigation
     this.pages = [
       {title: 'Home', component: 'HomePage'},
-      {title: 'Top 10', component: 'ListPage'},
-      {title: 'Detalles de la cuenta', component: 'VerUsuarioPage'},
-      {title: 'Graficos', component: 'GraficosPage'},
-      {title: 'Logout', component: 'LoginPage'},
+      {title: 'Top 10 categorías', component: 'ListPage'},
+      /*{title: 'Detalles de la cuenta', component: 'VerUsuarioPage'},*/
+      {title: 'Gráficos', component: 'GraficosPage'},
+      /*{title: 'Logout', component: 'LoginPage'},*/
       {title: 'Opciones', component: 'OpcionesPage'}
     ];
 
@@ -67,14 +68,27 @@ export class MyApp {
      // close the menu when clicking a link from the menu
      this.menu.close();
      // navigate to the new page if it is not the current page
-
+/*
      if(page.component == 'LoginPage'){
        this.storage.clear();
        this.angularFireAuth.auth.signOut().then( () => {
         this.nav.setRoot(page.component);
        });
-     } else {
+     } else {*/
       this.nav.setRoot(page.component);
-     }
+     //}
+  }
+
+  verInfoUsuario(){
+    this.menu.close();
+    this.nav.push('VerUsuarioPage');
+  }
+  
+  cierraSesion(){
+    this.menu.close();
+    this.storage.clear();
+    this.angularFireAuth.auth.signOut().then( () => {
+     this.nav.setRoot('LoginPage');
+    });
   }
 }
