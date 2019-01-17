@@ -1,3 +1,45 @@
 page-home {
+
+    #ventanaGrafico{
+        /*max-width: 500px;
+        max-height: 490px;
+        width: auto;
+        height: auto;
+        border-color: rgba(46,159,131,1);
+        text-align: justify;
+        margin-top: 10px;
+        position: relative;*/
+        background-color: rgb(207, 250, 240);
+        height: auto;
+    }
+
+    #seccionGrafico{
+        /*max-width: 500px;
+        max-height: 490px;
+        width: auto;
+        height: auto;
+        border-color: rgba(46,159,131,1);
+        text-align: justify;
+        margin-top: 10px;
+        position: relative;*/
+        height: auto;
+    }
+
+    #grafico{
+        height: 4000px;
+    }
+
+    canvas {
+        //border: 1px dotted red;
+      }
+      
+      .chart-container {
+        position: relative;
+        margin: auto;
+        height: 80vh;
+        width: 80vw;
+      }
+
+
 }
 

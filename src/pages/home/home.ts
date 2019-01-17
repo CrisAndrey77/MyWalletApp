@@ -106,6 +106,24 @@ export class HomePage {
           ]
         }]
       }
-      return this.getChart(this.doughnutCanvas.nativeElement, 'doughnut', data);
+
+      var options = {
+        maintainAspectRatio: false,
+        scales: {
+          yAxes: [{
+            stacked: true,
+            gridLines: {
+              display: false,
+              color: "rgba(255,99,132,0.2)"
+            }
+          }],
+          xAxes: [{
+            gridLines: {
+              display: false
+            }
+          }]
+        }
+      };
+      return this.getChart(this.doughnutCanvas.nativeElement, 'doughnut', data, options);
     }
 }

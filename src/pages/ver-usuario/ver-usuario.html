@@ -6,7 +6,7 @@
 -->
 <ion-header>
 
-  <ion-navbar>
+  <ion-navbar color="primary">
       <button ion-button menuToggle>
           <ion-icon name="menu"></ion-icon>
         </button>
@@ -31,7 +31,7 @@
         </ion-list-header>
         
         <ion-item *ngFor="let usuario of usuarioLista$ | async"
-          detail-push navPush="ViewSongPage"[navParams]="{usuario:usuario}">
+          detail-push navPush="" [navParams]="{usuario:usuario}">
           <ion-item>Nombre: {{usuario.nombre}}</ion-item>
           <ion-item>Correo: {{usuario.correo}}</ion-item>
           <ion-item>Ingresos Mensuales: {{usuario.ingresoMensual}}</ion-item>

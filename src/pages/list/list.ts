@@ -29,7 +29,6 @@ export class ListPage {
   obtieneArrayGastos(){
     let carga = this.loadingCtrl.create({
       content: 'Recuperando datos, por favor espere',
-      dismissOnPageChange: true
     });
     carga.present();
     setTimeout(() =>{

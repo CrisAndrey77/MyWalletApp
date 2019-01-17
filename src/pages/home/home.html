@@ -1,5 +1,5 @@
 <ion-header>
-  <ion-navbar>
+  <ion-navbar color="primary">
     <button ion-button menuToggle>
       <ion-icon name="menu"></ion-icon>
     </button>
@@ -16,17 +16,21 @@
       </div>
 
 
-      <ion-card>
+      <ion-card color="primary" id="seccionGrafico">
     
-        <ion-card-header>
+        <ion-card-header >
           Gráfico de dona
         </ion-card-header>
     
-        <ion-card-content>
-          <canvas #doughnutCanvas></canvas> 
-        </ion-card-content>
+        
     
       </ion-card>
 
+      <div class="chart-container">
+        <canvas #doughnutCanvas id="chart"></canvas> 
+
+    </div>
+
+      <button block id="botonPremium" ion-button (click)='openPremiun()'>Hazte Premium</button>
 
 </ion-content>
