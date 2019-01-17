@@ -21,12 +21,12 @@ import { Subscription } from 'rxjs/Subscription';
 export class GraficosPage {
 
   @ViewChild('barCanvas') barCanvas;
-  //@ViewChild('lineCanvas') lineCanvas;
-  //@ViewChild('pieCanvas') pieCanvas;
+  @ViewChild('lineCanvas') lineCanvas;
+  @ViewChild('pieCanvas') pieCanvas;
   @ViewChild('doughnutCanvas') doughnutCanvas;
 
   barChart: any;
- // lineChart: any;
+  lineChart: any;
   pieChart: any;
   doughnutChart: any; 
 
@@ -66,8 +66,9 @@ export class GraficosPage {
           }
         }
         this.getBarChart();
-        //this.getPieChart();
+        this.getPieChart(); // AQUI
         this.getDoughnutChart();
+       // this.getLineChart();
       })
 
 
@@ -77,11 +78,11 @@ export class GraficosPage {
   ngAfterViewInit(){
     setTimeout(()=>{
       this.barChart = this.getBarChart();
-      //this.lineChart = this.getLineChar();
+      //this.lineChart = this.getLineChart();
     }, 150)
 
     setTimeout(()=> {
-      //this.pieCanvas = this.getPieChart();
+      this.pieCanvas = this.getPieChart();
       this.doughnutChart = this.getDoughnutChart();
     }, 250)
   }
@@ -123,7 +124,7 @@ export class GraficosPage {
 
 
   
-    /*getLineChart(){
+  /*  getLineChart(){
       const data = {
         labels: this.categorias,
         datasets: [{
@@ -132,7 +133,7 @@ export class GraficosPage {
           lineTension : 0.1,
           backgroundColor: 'rgb(0,170,255)',
           borderColor: 'rgb(231, 205, 35)',
-          borderCapStyle: 'butt',em
+          borderCapStyle: 'butt',
           borderJoinStyle: 'miter',
           pointRadius: 1,
           pointHitRadius: 10,
@@ -148,24 +149,30 @@ export class GraficosPage {
           borderJoinStyle: 'miter',
           pointRadius: 1,
           pointHitRadius: 10,
-          data: [29, 135, 13, 70],
+          data: this.valores,
           scanGaps: false,    
         }
       ]
       }
       return this.getChart(this.lineCanvas.nativeElement, 'line', data);
-    }*/
-
-    /*getPieChart(){
+    }
+*/
+    getPieChart(){
       const data = {
         labels: this.categorias,
         datasets: [{
           data: this.valores,
-          backgroundColor: ['rgb(200, 6, 0)', 'rgb(36, 0, 255)', 'rgb(242, 255, 0)']
+          backgroundColor: [        
+          'rgb((0, 0, 255))',
+          'rgb(255,0,0)',
+          'rgb(20,0,255)',
+          'rgb(255,230,0)',
+          'rgb(0,255,10)',
+          'rgb(60,0,70)',]
       }]
     }
     return this.getChart(this.pieCanvas.nativeElement, 'pie', data);
-  }*/
+  }
 
 
   getDoughnutChart(){
@@ -175,9 +182,12 @@ export class GraficosPage {
         label: 'Prueba Chart',
         data: this.valores,
         backgroundColor: [
-          'rgb(0, 244, 97)',
-          'rgb(37, 39, 43)',
-          'rgb(255, 207, 0)'
+          'rgb(60,0,70)',
+          'rgb(255,0,0)',
+          'rgb(20,0,255)',
+          'rgb(255,230,0)',
+          'rgb(0,255,10)',
+          'rgb(60,0,70)',
         ]
       }]
     }
