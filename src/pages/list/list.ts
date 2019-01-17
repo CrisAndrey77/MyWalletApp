@@ -1,9 +1,10 @@
 import {Component} from '@angular/core';
-import {NavController, NavParams, IonicPage, LoadingController} from 'ionic-angular';
+import {NavController, NavParams, IonicPage, LoadingController, PopoverController} from 'ionic-angular';
 import {Gasto} from "../../models/gasto.model";
 import {UsuariosServicio} from "../../services/usuarios.service";
 import {Storage} from '@ionic/storage';
 import {Subscription} from "rxjs";
+import { PopOverUsuarioComponent } from '../../components/pop-over-usuario/pop-over-usuario';
 
 
 //Basado en la pagina de graficos para obtener la información.
@@ -14,6 +15,7 @@ import {Subscription} from "rxjs";
 })
 
 export class ListPage {
+  username:any;
   listaGastosSubscription: Subscription;
   arrayGastos: Gasto[] = new Array();
   items: Array<{ categoria: string, valor: number, entrada:number }> = new Array<{categoria: string, valor: number, entrada:number}>();
@@ -22,7 +24,8 @@ export class ListPage {
     public navParams: NavParams,
     private usuariosServicio: UsuariosServicio, 
     private storage: Storage,
-    public loadingCtrl: LoadingController) {
+    public loadingCtrl: LoadingController,
+    public popoverCtrl: PopoverController) {
       this.obtieneArrayGastos();
   }
 
@@ -37,6 +40,7 @@ export class ListPage {
     this.storage.get('email').then(
       (valor) => {
         let email = valor;
+        this.username = email;
         this.listaGastosSubscription = this.usuariosServicio.obtenerGastoPorUsuario2(email)
           .snapshotChanges().map(changes => {
             return changes.map(c => ({
@@ -56,7 +60,6 @@ export class ListPage {
     for (let gasto of this.arrayGastos) {
       let tempIndice:number = this.buscoIndiceCategoriaEnLista(this.items, 
         gasto.categoria);
-      console.log(tempIndice);
       if (tempIndice > -1) {
         this.items[tempIndice].valor = + this.items[tempIndice].valor + +gasto.valor;
         this.items[tempIndice].entrada = + this.items[tempIndice].entrada + + 1;
@@ -96,5 +99,12 @@ export class ListPage {
     if(tamano > 10){
       this.items = this.items.splice(10, tamano);
     }
+  }
+
+  presentaPopover(event){
+    let popover = this.popoverCtrl.create(PopOverUsuarioComponent);
+    popover.present({
+      ev: event
+    });
   }
 }

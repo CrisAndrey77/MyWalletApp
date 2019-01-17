@@ -16,9 +16,12 @@ import {SplashScreen} from '@ionic-native/splash-screen';
 import { Geolocation } from '@ionic-native/geolocation';
 import { UsuariosServicio } from '../services/usuarios.service';
 import { IonicStorageModule } from '@ionic/storage';
+
+import { PopOverUsuarioComponent } from  '../components/pop-over-usuario/pop-over-usuario';
 @NgModule({
   declarations: [
     MyApp,
+    PopOverUsuarioComponent,
   ],
   imports: [
     BrowserModule,
@@ -31,6 +34,7 @@ import { IonicStorageModule } from '@ionic/storage';
   bootstrap: [IonicApp],
   entryComponents: [
     MyApp,
+    PopOverUsuarioComponent,
   ],
   providers: [
     StatusBar,
