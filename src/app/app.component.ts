@@ -33,11 +33,12 @@ export class MyApp {
     // used for an example of ngFor and navigation
     this.pages = [
       {title: 'Home', component: 'HomePage'},
+      {title: 'Ver Gastos', component: 'VerGastosPage'},
       {title: 'Top 10 categorías', component: 'ListPage'},
       /*{title: 'Detalles de la cuenta', component: 'VerUsuarioPage'},*/
       {title: 'Gráficos', component: 'GraficosPage'},
       /*{title: 'Logout', component: 'LoginPage'},*/
-      {title: 'Opciones', component: 'OpcionesPage'}
+      {title: 'Opciones', component: 'OpcionesPage'}      
     ];
 
   }

@@ -21,10 +21,12 @@ export class VerGastosPage {
 
   //gastosLista$: Observable<Gasto[]>
   gastosLista$: Gasto[]
+  
 
   constructor(public navCtrl: NavController, public navParams: NavParams,
     private usuariosServicio: UsuariosServicio,
-    private storage: Storage) {
+    private storage: Storage,
+    private today: number) {      
   }
 
   ionViewWillLoad() {
