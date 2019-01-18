@@ -66,17 +66,29 @@ export class GraficosPage {
             this.valores.push(+g.valor);
           }
         }
-        this.getBarChart();
-        this.getPieChart(); // AQUI
-        this.getDoughnutChart();
+        this.graficosInit();
+        //this.getBarChart();
+        //this.getPieChart(); // AQUI
+        //this.getDoughnutChart();
        // this.getLineChart();
+
       })
 
 
     });
   }
 
-  ngAfterViewInit(){
+  /* ES IMPORTANTE QUE, CUANDO SE ABANDONE LA PAGINA,
+  SE DESUSCRIBA DE LA CONSULTA A LA BASE DE DATOS, PARA QUE NO HAYAN ERRORES
+  AL DESLOGEARSE DE LA APLICACION*/
+  ionViewWillLeave(){
+    this.listaGastosSubscription.unsubscribe();
+  }
+
+
+  
+  // antes se llamaba   ngAfterViewInit
+  graficosInit(){ 
     setTimeout(()=>{
       this.barChart = this.getBarChart();
       //this.lineChart = this.getLineChart();

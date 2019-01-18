@@ -39,6 +39,15 @@ export class RegistrarUsuarioPage {
 
   agregarUsuario(usuario: Usuario,password) {
     var email = usuario.correo; 
+
+
+
+    //guardo primero el email para que se pueda utilizar
+    //para mostrar el nombre de usuario en el menu desplegable.
+    //Hay que guardarlo primero porque el procedimiento de la creacion de la cuenta
+    //es asincronico, y como el menu desplegable puede crearse primero que
+    this.storage.set('email', email);
+    
     this.angularFireAuth.auth.createUserWithEmailAndPassword(email,password).then((res) => {
       this.usuarioServicio.agregarUsuario(usuario).then(ref => {
         this.navCtrl.setRoot('HomePage', {key: ref.key});

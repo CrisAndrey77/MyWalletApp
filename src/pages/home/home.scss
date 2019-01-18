@@ -9,7 +9,7 @@ page-home {
         text-align: justify;
         margin-top: 10px;
         position: relative;*/
-        background-color: rgb(207, 250, 240);
+        //background-color: rgb(207, 250, 240);
         height: auto;
     }
 
@@ -22,7 +22,13 @@ page-home {
         text-align: justify;
         margin-top: 10px;
         position: relative;*/
-        height: auto;
+        //height: auto;
+        
+    }
+
+    #encabezadoGrafico{
+        background-color: rgb(46, 159, 161);
+        color: rgb(255, 255, 255);
     }
 
     #grafico{

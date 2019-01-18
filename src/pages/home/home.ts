@@ -58,12 +58,21 @@ export class HomePage {
             this.valores.push(+g.valor);
           }
         }
-        this.getDoughnutChart();
+        //this.getDoughnutChart();
+        this.graficosInit();
+        
       })
 
 
     });
 
+  }
+
+  /* ES IMPORTANTE QUE, CUANDO SE ABANDONE LA PAGINA,
+  SE DESUSCRIBA DE LA CONSULTA A LA BASE DE DATOS, PARA QUE NO HAYAN ERRORES
+  AL DESLOGEARSE DE LA APLICACION*/
+  ionViewWillLeave(){
+    this.listaGastosSubscription.unsubscribe();
   }
 
   openSeachPlaces() {
@@ -74,7 +83,7 @@ export class HomePage {
     this.navCtrl.push('PremiunPage');
   }
 
-  ngAfterViewInit(){
+  graficosInit(){
     setTimeout(()=> {
       //this.pieCanvas = this.getPieChart();
       this.doughnutChart = this.getDoughnutChart();
@@ -111,6 +120,51 @@ export class HomePage {
         maintainAspectRatio: false,
         scales: {
           yAxes: [{
+            display:false,
+            ticks: {
+              display: false
+            },
+            stacked: true,
+            gridLines: {
+              display: false,
+            }
+          }],
+          xAxes: [{
+            display:false,
+            ticks: {
+              display: false
+            },
+            gridLines: {
+              display: false
+            }
+          }]
+        }
+      };
+      return this.getChart(this.doughnutCanvas.nativeElement, 'doughnut', data, options);
+    }
+
+    /*getDoughnutChart(){
+      const data = {
+        labels: this.categorias,
+        datasets: [{
+          label: 'Prueba Chart',
+          data: this.valores,
+          backgroundColor: [
+            'rgb(0, 244, 97)',
+            'rgb(37, 39, 43)',
+            'rgb(255, 207, 0)',
+            'rgb(240, 150, 20)',
+            'rgb(220, 40, 160)',
+            'rgb(200, 100, 0)',
+            'rgb(180, 130, 100)'
+          ]
+        }]
+      }
+
+      var options = {
+        maintainAspectRatio: false,
+        scales: {
+          yAxes: [{
             stacked: true,
             gridLines: {
               display: false,
@@ -125,5 +179,5 @@ export class HomePage {
         }
       };
       return this.getChart(this.doughnutCanvas.nativeElement, 'doughnut', data, options);
-    }
+    }*/
   }

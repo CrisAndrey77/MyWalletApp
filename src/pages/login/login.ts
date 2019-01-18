@@ -38,6 +38,7 @@ export class LoginPage {
   }
   
   login(email,password){
+    this.storage.set('email', email);
     this.angularFireAuth.auth.signInWithEmailAndPassword(email,password).then((user) => {
       this.navCtrl.setRoot('HomePage',{email});
       this.storage.set('email', email);

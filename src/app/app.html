@@ -6,7 +6,14 @@
       <ion-title>
         <button ion-item color="primary" (click)="verInfoUsuario()">
             <ion-icon name="contact"></ion-icon>
-            Usuario
+            <div></div>
+              <div *ngIf="usuario">
+                {{usuario}}
+              </div>
+
+              <div *ngIf="email">
+                {{email}}
+              </div>
           </button>
       </ion-title>
     </ion-toolbar>

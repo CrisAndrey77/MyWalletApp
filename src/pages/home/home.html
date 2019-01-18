@@ -18,20 +18,19 @@
 -->
 <button block id="botonPremium" ion-button (click)='openPremiun()'>Hazte Premium</button>
 
-      <ion-card color="primary" id="seccionGrafico">
+      <ion-card>
     
-        <ion-card-header >
+        <ion-card-header id="encabezadoGrafico">
           Gráfico de dona
         </ion-card-header>
     
-        
+        <ion-card-content class="chart-container">
+            <canvas #doughnutCanvas id="chart"></canvas> 
+       </ion-card-content>
     
       </ion-card>
 
-      <div class="chart-container">
-        <canvas #doughnutCanvas id="chart"></canvas> 
-
-    </div>
+      
 
       
 

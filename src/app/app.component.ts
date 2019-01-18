@@ -4,6 +4,8 @@ import {StatusBar} from '@ionic-native/status-bar';
 import {SplashScreen} from '@ionic-native/splash-screen';
 import {AngularFireAuth} from 'angularfire2/auth';
 import { Storage } from '@ionic/storage';
+import { UsuariosServicio } from './../services/usuarios.service';
+import { Subscription } from 'rxjs/Subscription';
 
 import {HomePage} from '../pages/home/home';
 import {ListPage} from '../pages/list/list';
@@ -20,6 +22,9 @@ export class MyApp {
 
   rootPage:any = 'LoginPage';
   pages: Array<{ title: string, component: any }>;
+  usuario:any;
+  email:any;
+  listaUsuariosSubscription: Subscription;
 
   constructor(
     public platform: Platform, 
@@ -27,7 +32,8 @@ export class MyApp {
     public splashScreen: SplashScreen,
     public menu: MenuController,
     private angularFireAuth: AngularFireAuth,
-    private storage: Storage) {
+    private storage: Storage,
+    private usuariosServicio: UsuariosServicio) {
     this.initializeApp();
 
     // used for an example of ngFor and navigation
@@ -41,6 +47,47 @@ export class MyApp {
       {title: 'Opciones', component: 'OpcionesPage'}      
     ];
 
+
+
+
+  }
+
+  /* Se encarga de mostrar en el menu desplegable el nombre
+  del usuario logeado y su correo */
+  cargarNomUsuario(){
+
+    this.storage.get('usuario').then((us) => {
+      
+
+      this.storage.get('email').then((val) => {
+        this.email = val;
+
+        // si existe un nombre de usuario y un email en el local storage,
+        // entonces no se hace la consulta a la base de datos.
+        // Si no es asi, se recupera el usuario por medio del email
+        // y luego de recuperar su nombre, se guarda en el local storage para evitar
+        // futuras consultas a la base innecesarias.
+        if(!us){
+
+          this.listaUsuariosSubscription =this.usuariosServicio.obtenerUsuarioPorEmail(this.email).snapshotChanges().map(changes => {
+            return changes.map(c => ({
+              key: c.payload.key, ...c.payload.val()
+            }))
+          })
+          .subscribe(users => {
+            this.usuario = users[0].nombre;
+            this.storage.set('usuario',this.usuario);
+            
+          })
+
+        } else{
+          this.usuario = us;
+        }
+
+
+        });
+
+    });
   }
 
   initializeApp() {
@@ -49,18 +96,27 @@ export class MyApp {
       // Here you can do any higher level native things you might need.
       this.statusBar.styleDefault();
       this.splashScreen.hide();
-      this.angularFireAuth.auth.onAuthStateChanged(function(user) {
+      this.angularFireAuth.auth.onAuthStateChanged(user => {
 
+        if(user){
+          //cada vez que la app se refresque o inicie de nuevo, si el usuario
+          //sigue logueado en la app, va a mostrar en el menu desplegable el 
+          //nombre y el email
+          this.cargarNomUsuario();
+        }
+      });
+
+      //Hay dos onAuthStateChanged repetidos
+      //tuve que hacerlo porque este de abajo no permitia llamar metodos
+      this.angularFireAuth.auth.onAuthStateChanged(function (user) {
         if(user){
           this.rootPage = 'HomePage';
         }
         else {
           this.rootPage = 'LoginPage';
         }
-      
-      }
-      
-      );
+      });
+
     });
   }
 
@@ -69,15 +125,8 @@ export class MyApp {
      // close the menu when clicking a link from the menu
      this.menu.close();
      // navigate to the new page if it is not the current page
-/*
-     if(page.component == 'LoginPage'){
-       this.storage.clear();
-       this.angularFireAuth.auth.signOut().then( () => {
-        this.nav.setRoot(page.component);
-       });
-     } else {*/
+
       this.nav.setRoot(page.component);
-     //}
   }
 
   verInfoUsuario(){
@@ -86,10 +135,12 @@ export class MyApp {
   }
   
   cierraSesion(){
+    if(this.listaUsuariosSubscription){
+      this.listaUsuariosSubscription.unsubscribe();
+    }
     this.menu.close();
-    this.storage.clear();
-    this.angularFireAuth.auth.signOut().then( () => {
-     this.nav.setRoot('LoginPage');
-    });
+    this.nav.setRoot('LogoutPage');
+    
+    
   }
 }
