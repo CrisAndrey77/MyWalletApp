@@ -1,11 +1,11 @@
 import {Component} from '@angular/core';
-import {NavController, NavParams, IonicPage, LoadingController, PopoverController} from 'ionic-angular';
+import {NavController, NavParams, IonicPage, LoadingController} from 'ionic-angular';
 import {Gasto} from "../../models/gasto.model";
 import {UsuariosServicio} from "../../services/usuarios.service";
 import {Storage} from '@ionic/storage';
 import {Subscription} from "rxjs";
-
-
+import { AdMob } from '@ionic-native/admob-plus'
+import {Platform} from 'ionic-angular';
 //Basado en la pagina de graficos para obtener la información.
 @IonicPage()
 @Component({
@@ -23,7 +23,10 @@ export class ListPage {
     public navParams: NavParams,
     private usuariosServicio: UsuariosServicio, 
     private storage: Storage,
-    public loadingCtrl: LoadingController) {
+    public loadingCtrl: LoadingController,
+    public admob: AdMob, 
+    public platform: Platform) {
+      this.muestraBanner();
       this.obtieneArrayGastos();
   }
 
@@ -96,6 +99,19 @@ export class ListPage {
     let tamano:number = this.items.length;
     if(tamano > 10){
       this.items = this.items.splice(10, tamano);
+    }
+  }
+
+  muestraBanner(){
+    if(this.platform.is('ios') || this.platform.is('android') || this.platform.is('cordova')){
+      this.admob.banner.show(
+        {
+          id:{
+            android: 'ca-app-pub-3940256099942544/6300978111',
+            ios: 'test'
+          }
+        }
+      );
     }
   }
 }
