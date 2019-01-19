@@ -4,6 +4,7 @@ import { Observable } from 'rxjs/Observable'
 import { Gasto } from '../../models/gasto.model'
 import { UsuariosServicio } from '../../services/usuarios.service';
 import { Storage } from '@ionic/storage';
+import { Subscription } from 'rxjs/Subscription';
 
 /**
  * Generated class for the VerGastosPage page.
@@ -20,7 +21,8 @@ import { Storage } from '@ionic/storage';
 export class VerGastosPage {
 
   //gastosLista$: Observable<Gasto[]>
-  gastosLista$: Gasto[]
+  gastosLista$: Observable<Gasto[]>;
+  listaGastosSubscription: Subscription;
   
 
   constructor(public navCtrl: NavController, public navParams: NavParams,
@@ -38,7 +40,16 @@ export class VerGastosPage {
         key: c.payload.key, ...c.payload.val()
         }));
       });
+
+      this.listaGastosSubscription = this.gastosLista$.subscribe( user =>{});
     });    
+  }
+
+  /* ES IMPORTANTE QUE, CUANDO SE ABANDONE LA PAGINA,
+  SE DESUSCRIBA DE LA CONSULTA A LA BASE DE DATOS, PARA QUE NO HAYAN ERRORES
+  AL DESLOGEARSE DE LA APLICACION*/
+  ionViewWillLeave(){
+    this.listaGastosSubscription.unsubscribe();
   }
 
 }

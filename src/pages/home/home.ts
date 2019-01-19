@@ -28,12 +28,16 @@ export class HomePage {
   categorias = new Array();
   valores = new Array();
   email:any;
+  num_categorias:any;
+  gasto_total:any;
 
   
 
   constructor(public navCtrl: NavController, public navParams: NavParams,
     public angularFireAuth: AngularFireAuth, private storage: Storage,
     private usuariosServicio: UsuariosServicio) {
+      
+      this.gasto_total = 0;
     //this.email = navParams.get('email');
 
     storage.get('email').then((val) => {
@@ -58,8 +62,15 @@ export class HomePage {
             this.valores.push(+g.valor);
           }
         }
+
+
         //this.getDoughnutChart();
         this.graficosInit();
+        this.num_categorias = this.categorias.length;
+
+        for(let g of this.valores){
+          this.gasto_total = +this.gasto_total + +g;
+        }
         
       })
 

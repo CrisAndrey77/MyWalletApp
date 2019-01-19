@@ -14,6 +14,9 @@ import { Subscription } from 'rxjs/Subscription';
  * Ionic pages and navigation.
  */
 
+ 
+declare var require: any
+
 @IonicPage()
 @Component({
   selector: 'page-graficos',
@@ -35,10 +38,21 @@ export class GraficosPage {
   listaGastosSubscription: Subscription;
   categorias = new Array();
   valores = new Array();
+  array_valores_barra = new Array();
+  array_categorias_barra = new Array();
+  array_fechas_barra = new Array();
+
+  fecha_actual:any;
 
   constructor(public navCtrl: NavController, public navParams: NavParams,
     private usuariosServicio: UsuariosServicio,
     private storage: Storage) {
+
+      //calculando fecha actual
+      let dateFormat = require('dateformat');
+      let now = new Date();
+
+      this.fecha_actual=dateFormat(now, "dd, mm, yyyy, h:MM:ss TT"); 
   }
 
   ionViewWillLoad() {
@@ -71,6 +85,7 @@ export class GraficosPage {
         //this.getPieChart(); // AQUI
         //this.getDoughnutChart();
        // this.getLineChart();
+       this.filtrarFechas();
 
       })
 
@@ -83,6 +98,22 @@ export class GraficosPage {
   AL DESLOGEARSE DE LA APLICACION*/
   ionViewWillLeave(){
     this.listaGastosSubscription.unsubscribe();
+  }
+
+
+  filtrarFechas(){
+    for(let g of this.arrayGastos){
+
+      var fechaGasto = g.fecha.split(", ",3 );
+      var dia = fechaGasto[0];
+      var mes = fechaGasto[1];
+      var anno = fechaGasto[2];
+
+      var fecha = new Date(+anno,+mes,+dia);
+      console.log(fecha + " + " + g.descripcion);
+
+    }
+
   }
 
 

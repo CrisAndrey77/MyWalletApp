@@ -70,7 +70,7 @@ export class OpcionesPage {
     carga.present();
     setTimeout(() =>{
       carga.dismiss();
-    }, 3000);
+    }, 500);
     this.storage.get('usuario').then((us) => {  
       this.storage.get('email').then((val) => {
         this.email = val;
@@ -104,5 +104,12 @@ editarUsuario(){
   usuarioEnvia.ingresoMensual = this.usuario.ingresoMensual;
   this.usuarioServicio.editarUsurario(this.usuario, this.usuario.key);
 }
+
+/* ES IMPORTANTE QUE, CUANDO SE ABANDONE LA PAGINA,
+  SE DESUSCRIBA DE LA CONSULTA A LA BASE DE DATOS, PARA QUE NO HAYAN ERRORES
+  AL DESLOGEARSE DE LA APLICACION*/
+  ionViewWillLeave(){
+    this.usuarioListaSubscription.unsubscribe();
+  }
 
 }
