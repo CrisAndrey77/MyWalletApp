@@ -4,8 +4,10 @@ import {Gasto} from "../../models/gasto.model";
 import {UsuariosServicio} from "../../services/usuarios.service";
 import {Storage} from '@ionic/storage';
 import {Subscription} from "rxjs";
-import { AdMob } from '@ionic-native/admob-plus'
+import { AdMobFree, AdMobFreeBannerConfig } from '@ionic-native/admob-free';
 import {Platform} from 'ionic-angular';
+
+
 //Basado en la pagina de graficos para obtener la información.
 @IonicPage()
 @Component({
@@ -14,7 +16,6 @@ import {Platform} from 'ionic-angular';
 })
 
 export class ListPage {
-  username:any;
   listaGastosSubscription: Subscription;
   arrayGastos: Gasto[] = new Array();
   items: Array<{ categoria: string, valor: number, entrada:number }> = new Array<{categoria: string, valor: number, entrada:number}>();
@@ -24,7 +25,7 @@ export class ListPage {
     private usuariosServicio: UsuariosServicio, 
     private storage: Storage,
     public loadingCtrl: LoadingController,
-    public admob: AdMob, 
+    public admob: AdMobFree, 
     public platform: Platform) {
       this.muestraBanner();
       this.obtieneArrayGastos();
@@ -38,10 +39,10 @@ export class ListPage {
     setTimeout(() =>{
       carga.dismiss();
     }, 5000);
+
     this.storage.get('email').then(
       (valor) => {
         let email = valor;
-        this.username = email;
         this.listaGastosSubscription = this.usuariosServicio.obtenerGastoPorUsuario2(email)
           .snapshotChanges().map(changes => {
             return changes.map(c => ({
@@ -102,16 +103,22 @@ export class ListPage {
     }
   }
 
-  muestraBanner(){
-    if(this.platform.is('ios') || this.platform.is('android') || this.platform.is('cordova')){
-      this.admob.banner.show(
-        {
-          id:{
-            android: 'ca-app-pub-3940256099942544/6300978111',
-            ios: 'test'
-          }
+  async muestraBanner(){
+    console.log(this.platform);
+      try {
+        const bannerConfig: AdMobFreeBannerConfig = {
+          id: 'ca-app-pub-3940256099942544/6300978111',
+          isTesting: true,
+          autoShow: true
         }
-      );
+  
+        this.admob.banner.config(bannerConfig);
+  
+        const result = await this.admob.banner.prepare();
+        console.log(result);
+      }
+      catch (e) {
+        console.error(e);
+      }
     }
-  }
 }

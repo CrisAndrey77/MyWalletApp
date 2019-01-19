@@ -41,24 +41,15 @@ export class MyApp {
       {title: 'Home', component: 'HomePage'},
       {title: 'Ver Gastos', component: 'VerGastosPage'},
       {title: 'Top 10 categorías', component: 'ListPage'},
-      /*{title: 'Detalles de la cuenta', component: 'VerUsuarioPage'},*/
       {title: 'Gráficos', component: 'GraficosPage'},
-      /*{title: 'Logout', component: 'LoginPage'},*/
       {title: 'Opciones', component: 'OpcionesPage'}      
     ];
-
-
-
-
   }
 
   /* Se encarga de mostrar en el menu desplegable el nombre
   del usuario logeado y su correo */
   cargarNomUsuario(){
-
-    this.storage.get('usuario').then((us) => {
-      
-
+    this.storage.get('usuario').then((us) => {  
       this.storage.get('email').then((val) => {
         this.email = val;
 
@@ -77,16 +68,11 @@ export class MyApp {
           .subscribe(users => {
             this.usuario = users[0].nombre;
             this.storage.set('usuario',this.usuario);
-            
           })
-
         } else{
           this.usuario = us;
         }
-
-
         });
-
     });
   }
 

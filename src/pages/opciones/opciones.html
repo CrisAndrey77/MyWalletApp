@@ -22,8 +22,7 @@
       <ion-card-title>Actualizar datos de usuario</ion-card-title>
     </ion-card-header>
 
-    <ion-card-content *ngFor="let usuario of usuarioLista$ | async"
-                      detail-push navPush="" [navParams]="{usuario:usuario}">
+    <ion-card-content>
 
 
       <ion-item>
@@ -39,7 +38,7 @@
       </ion-item>
 
       <ion-item>
-        <button ion-button>Guardar</button>
+        <button ion-button (click)="editarUsuario()">Guardar</button>
       </ion-item>
 
     </ion-card-content>

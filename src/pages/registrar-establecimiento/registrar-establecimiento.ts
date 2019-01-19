@@ -46,6 +46,7 @@ export class RegistrarEstablecimientoPage {
   }
 
   ionViewWillLoad() {
+    
     this.storage.get('place').then((val) => {
       this.place = val;
       console.log(this.place);
@@ -54,6 +55,7 @@ export class RegistrarEstablecimientoPage {
       }
       this.categorias = val.types;
     });
+    
   }
 
   agregarGasto(gasto:Gasto){

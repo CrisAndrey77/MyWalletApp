@@ -91,5 +91,9 @@
         <variable name="APP_ID_IOS" value="ca-app-pub-xxx~xxx" />
         <variable name="ADMOB_APPLICATOIN_ID" value="ca-app-pub-xxx~xxx" />
     </plugin>
+    <plugin name="cordova-plugin-admob-free" spec="0.25.0">
+        <variable name="ADMOB_APP_ID" value="ca-app-pub-xxx~xxx" />
+    </plugin>
     <engine name="browser" spec="5.0.4" />
+    <engine name="android" spec="^7.1.4" />
 </widget>
