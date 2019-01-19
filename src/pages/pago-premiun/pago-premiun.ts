@@ -91,6 +91,7 @@ export class PagoPremiunPage {
       });
     }, () => {
       // Error in initialization, maybe PayPal isn't supported or something else
+      console.log("Error", " Error in initialization, maybe PayPal isn't supported or something else. Error: " + JSON.stringify(err));
     });
   }
 
