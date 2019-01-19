@@ -25,8 +25,7 @@ export class VerGastosPage {
 
   constructor(public navCtrl: NavController, public navParams: NavParams,
     private usuariosServicio: UsuariosServicio,
-    private storage: Storage,
-    private today: number) {      
+    private storage: Storage) {      
   }
 
   ionViewWillLoad() {
@@ -39,9 +38,7 @@ export class VerGastosPage {
         key: c.payload.key, ...c.payload.val()
         }));
       });
-    });
-
-    
+    });    
   }
 
 }

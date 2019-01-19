@@ -6,6 +6,7 @@ import { AngularFireAuth} from 'angularfire2/auth';
 import { UsuariosServicio } from '../../services/usuarios.service';
 import { Storage } from '@ionic/storage';
 
+
 /**
  * Generated class for the VerUsuarioPage page.
  *

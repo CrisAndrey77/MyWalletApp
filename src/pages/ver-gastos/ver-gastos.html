@@ -21,7 +21,7 @@
         </ion-list-header>
         
         <ion-item *ngFor="let gasto of gastosLista$ | async"
-          detail-push navPush=""[navParams]="{gasto:gasto}">          
+          detail-push navPush="" [navParams]="{gasto:gasto}">          
           {{gasto.nombre}}     {{gasto.valor}} 
         </ion-item>
       </ion-list>
