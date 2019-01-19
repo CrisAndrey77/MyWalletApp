@@ -9,16 +9,15 @@ page-pago-premiun {
         clear:inherit;
         text-align: justify;
         margin-top: 10px;
-        border-color: rgba(46,159,131,1); 
+        border-color: #2e9fa1; 
         
     }
 
     #cardPaypal{
         max-width: 500px;
         max-height: 490px;
-        width: auto;
-        height: auto; 
-        border-color: rgba(46,159,131,1);
+        
+        border-color: #2e9fa1;
         text-align: justify;
         margin-top: 10px;
         position: relative;
@@ -32,7 +31,7 @@ page-pago-premiun {
         text-align: justify;
         margin-top: 10px;
         float: inherit;
-        border-color: rgba(46,159,131,1);
+        border-color: #2e9fa1;
         position: relative;
     }
 
@@ -45,6 +44,7 @@ page-pago-premiun {
 
     .cardHeader{
         background-color: rgba(82,86,97,1);
+        position: relative;
     }
 
 
@@ -57,7 +57,7 @@ page-pago-premiun {
     }
 
     .icons{
-        color:rgba(46,159,131,1);
+        color:#2e9fa1;
     }
 
     .input-size{
@@ -101,10 +101,12 @@ page-pago-premiun {
     }
 
     #labelConf{
-        text-align: start;
+        text-align: justify;
         font-size: 15px;
         padding-top: 3px;
         color: grey;
+        position: relative;
+        
     }
 
     .labelRatio{
@@ -124,6 +126,7 @@ page-pago-premiun {
     #rowFirst{
         //margin-left: 10px;
         justify-content: center;
+        position: relative;
     }
 
 
@@ -148,16 +151,17 @@ page-pago-premiun {
         font-size: 24px;
         font-style: oblique;
         text-align: center;
-        color: rgba(46,159,131,1);
+        color: #2e9fa1;
         margin-left: 10px;
+        text-align: justify;
+        
     }
 
     .tituloCardPremiun{
-       // margin-top: 20px;
-        font-size: 24px;
+        font-size: 23.5px;
+        position: relative;
         text-align: center;
         color: #000;
-        //margin-left: 10px;
     }
 
     .form-group{
@@ -166,14 +170,15 @@ page-pago-premiun {
 
     .btnPlan{
         float: right;
-        background-color: rgba(46,159,131,1);
-        border-color: rgba(46,159,131,1);
+        background-color: #2e9fa1;
+        border-color:#2e9fa1;
         width: 130px;
     }
 
     .btnCard{
-        background-color:  rgba(46,159,131,1);
-        border-color: rgba(46,159,131,1);
+        background-color: #2e9fa1;
+        border-color: #2e9fa1;
+        position: relative;
     }
 
     

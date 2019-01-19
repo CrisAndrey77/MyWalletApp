@@ -16,6 +16,9 @@ import {SplashScreen} from '@ionic-native/splash-screen';
 import { Geolocation } from '@ionic-native/geolocation';
 import { UsuariosServicio } from '../services/usuarios.service';
 import { IonicStorageModule } from '@ionic/storage';
+//import { PayPal, PayPalPayment, PayPalConfiguration } from '@ionic-native/paypal';
+import { PayPal } from '@ionic-native/paypal';
+
 @NgModule({
   declarations: [
     MyApp,
@@ -38,7 +41,8 @@ import { IonicStorageModule } from '@ionic/storage';
     Geolocation,
     {provide: ErrorHandler, useClass: IonicErrorHandler},
     AngularFireAuth,
-    UsuariosServicio
+    UsuariosServicio,
+    PayPal
   ]
 })
 export class AppModule {}

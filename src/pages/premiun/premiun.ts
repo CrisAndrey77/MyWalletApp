@@ -15,6 +15,18 @@ import { IonicPage, NavController, NavParams } from 'ionic-angular';
 })
 export class PremiunPage {
 
+  planMensual = {
+    pago: "2.99",
+    plan: "Mensual",
+    metodo: "mes"
+  };
+
+  planAnual = {
+    pago: "29.99",
+    plan: "Anual",
+    metodo: "año"
+  };
+
   constructor(public navCtrl: NavController, public navParams: NavParams) {
   }
 
@@ -22,8 +34,12 @@ export class PremiunPage {
     console.log('ionViewDidLoad PremiunPage');
   }
 
-  goPremiunPago() {
-    this.navCtrl.push('PagoPremiunPage');
+  goPremiunMensual() {
+    this.navCtrl.push('PagoPremiunPage', this.planMensual);
+  }
+
+  goPremiunAnual(){
+    this.navCtrl.push('PagoPremiunPage', this.planAnual);
   }
 
 }
