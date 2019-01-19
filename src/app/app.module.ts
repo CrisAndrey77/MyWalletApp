@@ -17,6 +17,7 @@ import { Geolocation } from '@ionic-native/geolocation';
 import { UsuariosServicio } from '../services/usuarios.service';
 import { IonicStorageModule } from '@ionic/storage';
 import {AdMob} from 'ionic-admob';
+import { PayPal, PayPalPayment, PayPalConfiguration } from '@ionic-native/paypal';
 
 @NgModule({
   declarations: [
@@ -42,6 +43,7 @@ import {AdMob} from 'ionic-admob';
     AngularFireAuth,
     UsuariosServicio,
     AdMob,
+    PayPal
   ]
 })
 export class AppModule {}

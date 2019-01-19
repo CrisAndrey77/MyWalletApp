@@ -9,9 +9,9 @@
   <ion-navbar color="primary">
       <button ion-button menuToggle>
           <ion-icon name="menu"></ion-icon>
-      </button>
+        </button>
 
-    <button  (click)='goPremiun()' outline style="color:#fff"  class="btnPlan" ion-button>Ver Planes</button>
+    <button  (click)='goPremiun()' outline style="color: rgba(82,86,97,1)"  class="btnPlan" ion-button>Ver Planes</button>
 
   </ion-navbar> 
 </ion-header>
@@ -25,7 +25,9 @@
           <ion-card id="cardPremiun">
               <ion-card-header class= "cardHeader">
                   <div text-center id="rowFirst">
-                      <label style="color:rgba(46,159,131,1);" class="tituloCardPremiun">Los beneficios que obtienes <br>con tu plan <br> Premiun Mensual</label>
+                      <p style="color:#2e9fa1;" class="tituloCardPremiun">Los beneficios que <br> obtienes con tu plan <br> Premiun {{objetoRecibido.plan}} </p>
+                      
+                      <p style="color: #2e9fa1;" class="tituloCardPremiun">por solo $ {{objetoRecibido.pago}}</p> 
                   </div>
               </ion-card-header>
               <ion-card-content>
@@ -34,28 +36,11 @@
                       <p class="beneficios"><ion-icon class="icons" name="checkmark"></ion-icon> Sin anuncios</p>
                       <p class="beneficios"><ion-icon class="icons" name="checkmark"></ion-icon> Revisa el historial de tus gastos pasados</p>
                     </div>
-                  <ion-list>
-                    <ion-list-header>
-                      <p class="labelCont">Elige un método de pago</p>
-                     </ion-list-header> 
-                    <button ion-item item-start (click)="showHide1()">
-                      <ion-icon class="icons" name="ios-arrow-forward"></ion-icon>
-                      Paypal
-                    </button> 
-                    <button ion-item item-start (click)="showHide2()">
-                      <ion-icon class="icons" name="ios-arrow-forward"></ion-icon>
-                      Visa/Mastercard
-                    </button>
-                    <button ion-item item-start (click)="showHide3()">
-                      <ion-icon class="icons" name="ios-arrow-forward"></ion-icon>
-                      American Express
-                    </button>      
-                   </ion-list>
                 </ion-card-content>
                 </ion-card>
       </ion-col>
       <ion-col>
-          <ion-card id="cardPaypal" *ngIf="ocultar1">
+          <ion-card id="cardPaypal" >
               <ion-card-header class="cardHeader">
                   <div class="row">
                       <img id="imgPaypal" src="/assets/imgs/p1.png">
@@ -63,152 +48,74 @@
                   </div>
               </ion-card-header>
               <ion-card-content>
-                  <label class="labelCont">Haz clic en el botón de abajo para iniciar sesión <br> y pagar con tu cuenta de PayPal.</label>
-                  <p id="labelConf">Confirmo que he leído y aceptado el Condiciones generales de uso. Al dar click en "Comenzar mi suscripción a MyWallet Calculator Premium", comienzas a disfrutar de 
-                      las características premiun que te ofrecemos y aceptas que cada mes se realizará automáticamente el cargo de la cuota de suscripción, hasta que la canceles. Tienes la posibilidad de cancelar tu suscripción en cualquier momento yendo a "Ajustes" en tu cuenta.</p>
-                  <br>
-                  <button ion-button class="btnCard" text-center>Continuar a Paypal</button>
+                      <label class="labelCont">Haz clic en el botón de abajo para realizar el pago con PayPal.</label>
+                      <label id="labelConf">Confirmo que he leído y aceptado el Condiciones generales de uso. Al dar click en "Comenzar mi suscripción a MyWallet Calculator Premium", comienzas a disfrutar de 
+                      las características premiun que te ofrecemos y aceptas que se realizará automáticamente el cargo de la cuota de suscripción, hasta que la canceles. 
+                      Tienes la posibilidad de cancelar tu suscripción en cualquier momento llendo a "Ajustes" en tu cuenta.</label>
+            
+                    <button ion-button class="btnCard" text-center (click)="gotoPay()">Continuar a Paypal</button>
                 </ion-card-content>
                 </ion-card>
-
-                <ion-card class="card"  *ngIf="ocultar2">
-                    <ion-card-header class="cardHeader">
-                       <div class="row">
-                           <img class="imgViMas" src="/assets/imgs/visa.png">
-                           <img class="imgViMas" src="/assets/imgs/mastercard.png">
-                           <label class="titulotarjeta">Tarjeta bancaria</label>
-                       </div>
-                     </ion-card-header>
-                     <!--<img src="/assets/icon/paypal.png"> -->
-                     <ion-card-content>
-                       <br>
-                         <form>
-                             <div class="form-group">
-                               <label class="labels">Nombre del titular de la tarjeta</label>
-                               <input type="text" class="custom-select-lg mb-3 form-control" id="formName">
-                             </div>
-                             <div class="form-group">
-                               <label class="labels" for="exampleFormControlInput1">Número tarjeta bancaria</label>
-                               <input type="tel" placeholder="•••• •••• •••• ••••" minlength="16" maxlength="16" class="custom-select-lg mb-3 form-control" id="formNumber">
-                             </div>
-                             <div class="form-group">
-                               <label class="labels" for="exampleFormControlSelect1">Fecha de Caducidad</label>
-                               <div class="form-row">
-                                 <div class="col">
-                                   <select class="form-control custom-select-lg mb-3" id="formMonth">
-                                     <option>01 Enero</option>
-                                     <option>02 Febrero</option>
-                                     <option>03 Marzo</option>
-                                     <option>04 Abril</option>
-                                     <option>05 Mayo</option>
-                                     <option>06 Junio</option>
-                                     <option>07 Julio</option>
-                                     <option>08 Agosto</option>
-                                     <option>09 Setiembre</option>
-                                     <option>10 Octubre</option>
-                                     <option>11 Noviembre</option>
-                                     <option>12 Diciembre</option>
-                                   </select>
-                                 </div>
-                                 <div class="col">
-                                 <select class="form-control custom-select-lg mb-3" id="formYear">
-                                   <option>2019</option>
-                                   <option>2020</option>
-                                   <option>2021</option>
-                                   <option>2022</option>
-                                   <option>2023</option>
-                                   <option>2024</option>
-                                   <option>2025</option>
-                                   <option>2026</option>
-                                   <option>2027</option>
-                                   <option>2028</option>
-                                   <option>2029</option>
-                                   <option>2030</option>
-                                 </select>
-                                 </div>
-                               </div>
-                           </div>
-                             <div class="form-group">
-                               <label class="labels" for="exampleFormControlInput1">Código de Seguridad</label>
-                               <input type="tel" minlength="3" maxlength="3" placeholder="•••" class="form-control custom-select-lg mb-3" id="formCode">
-                               <!--<ion-icon id="lock"name="information-circle"></ion-icon> -->
-                             </div>
-                           </form>
-                           <p id="confirmo">Confirmo que he leído y aceptado el Condiciones generales de uso. Al dar click en "Comenzar mi suscripción a MyWallet Calculator Premium", comienzas a disfrutar de 
-                             las características premiun que te ofrecemos y aceptas que cada mes se realizará automáticamente el cargo de la cuota de suscripción, hasta que la canceles. Tienes la posibilidad de cancelar tu suscripción en cualquier momento yendo a "Ajustes" en tu cuenta.</p>
-                           <br>
-                           <button class="btnCard" ion-button>Realizar pago</button>
-                     </ion-card-content>
-                     </ion-card>
-                
-               <ion-card class="card"  *ngIf="ocultar3">
-                  <ion-card-header class="cardHeader">
-                     <div class="row">
-                         <img id="imgAmerican" src="/assets/imgs/american.png">
-                         <label class="titulotarjeta">American Express</label>
-                       </div>
-                   </ion-card-header>
-                   <!--<img src="/assets/icon/paypal.png"> -->
-                   <ion-card-content>
-                     <br>
-                       <form>
-                           <div class="form-group">
-                             <label class="labels">Nombre del titular de la tarjeta</label>
-                             <input type="text" class="custom-select-lg mb-3 form-control" id="formName">
-                           </div>
-                           <div class="form-group">
-                             <label class="labels" for="exampleFormControlInput1">Número tarjeta bancaria</label>
-                             <input type="tel" placeholder="•••• •••••• •••••" minlength="15" maxlength="15" class="custom-select-lg mb-3 form-control" id="formNumber">
-                           </div>
-                           <div class="form-group">
-                             <label class="labels" for="exampleFormControlSelect1">Fecha de Caducidad</label>
-                             <div class="form-row">
-                               <div class="col">
-                                 <select class="form-control custom-select-lg mb-3" id="formMonth">
-                                   <option>01 Enero</option>
-                                   <option>02 Febrero</option>
-                                   <option>03 Marzo</option>
-                                   <option>04 Abril</option>
-                                   <option>05 Mayo</option>
-                                   <option>06 Junio</option>
-                                   <option>07 Julio</option>
-                                   <option>08 Agosto</option>
-                                   <option>09 Setiembre</option>
-                                   <option>10 Octubre</option>
-                                   <option>11 Noviembre</option>
-                                   <option>12 Diciembre</option>
-                                 </select>
-                               </div>
-                               <div class="col">
-                               <select class="form-control custom-select-lg mb-3" id="formYear">
-                                 <option>2019</option>
-                                 <option>2020</option>
-                                 <option>2021</option>
-                                 <option>2022</option>
-                                 <option>2023</option>
-                                 <option>2024</option>
-                                 <option>2025</option>
-                                 <option>2026</option>
-                                 <option>2027</option>
-                                 <option>2028</option>
-                                 <option>2029</option>
-                                 <option>2030</option>
-                               </select>
-                               </div>
-                             </div>
-                         </div>
-                           <div class="form-group">
-                             <label class="labels" for="exampleFormControlInput1">Código de Seguridad</label>
-                             <input type="tel" minlength="4" maxlength="4" placeholder="••••" class="form-control custom-select-lg mb-3" id="formCode">
-                            <!-- <ion-icon id="lock"name="information-circle"></ion-icon> -->
-                           </div>
-                         </form>
-                         <p id="confirmo">Confirmo que he leído y aceptado el Condiciones generales de uso. Al dar click en "Comenzar mi suscripción a MyWallet Calculator Premium", comienzas a disfrutar de 
-                           las características premiun que te ofrecemos y aceptas que cada mes se realizará automáticamente el cargo de la cuota de suscripción, hasta que la canceles. Tienes la posibilidad de cancelar tu suscripción en cualquier momento yendo a "Ajustes" en tu cuenta.</p>
-                         <button class="btnCard" ion-button>Realizar pago</button>
-                   </ion-card-content>
-                   </ion-card>
       </ion-col>
     </ion-row>
   </ion-grid>
-  </ion-content>
+</ion-content>
+
+
+
+<ion-header>
+
+  <ion-navbar color="primary">
+      <button ion-button menuToggle>
+          <ion-icon name="menu"></ion-icon>
+        </button>
+
+    <button  (click)='goPremiun()' outline style="color: rgba(82,86,97,1)"  class="btnPlan" ion-button>Ver Planes</button>
+
+  </ion-navbar> 
+</ion-header>
+
+
+<ion-content id="font" padding>
+
+  <ion-grid>
+    <ion-row>
+      <ion-col>
+          <ion-card id="cardPremiun">
+              <ion-card-header class= "cardHeader">
+                  <div text-center id="rowFirst">
+                      <p style="color:#2e9fa1;" class="tituloCardPremiun">Los beneficios que <br> obtienes con tu plan <br> Premiun {{objetoRecibido.plan}} </p>
+                      
+                      <p style="color: #2e9fa1;" class="tituloCardPremiun">por solo $ {{objetoRecibido.pago}}</p> 
+                  </div>
+              </ion-card-header>
+              <ion-card-content>
+                    <div text-center>
+                      <p class="beneficios"><ion-icon class="icons" name="checkmark"></ion-icon> Obten más estadística de tus gastos</p>
+                      <p class="beneficios"><ion-icon class="icons" name="checkmark"></ion-icon> Sin anuncios</p>
+                      <p class="beneficios"><ion-icon class="icons" name="checkmark"></ion-icon> Revisa el historial de tus gastos pasados</p>
+                    </div>
+                </ion-card-content>
+                </ion-card>
+      </ion-col>
+      <ion-col>
+          <ion-card id="cardPaypal" >
+              <ion-card-header class="cardHeader">
+                  <div class="row">
+                      <img id="imgPaypal" src="/assets/imgs/p1.png">
+                      <label class="titulotarjeta">Paypal</label>
+                  </div>
+              </ion-card-header>
+              <ion-card-content>
+                      <label class="labelCont">Haz clic en el botón de abajo para realizar el pago con PayPal.</label>
+                      <label id="labelConf">Confirmo que he leído y aceptado el Condiciones generales de uso. Al dar click en "Comenzar mi suscripción a MyWallet Calculator Premium", comienzas a disfrutar de 
+                      las características premiun que te ofrecemos y aceptas que se realizará automáticamente el cargo de la cuota de suscripción, hasta que la canceles. 
+                      Tienes la posibilidad de cancelar tu suscripción en cualquier momento llendo a "Ajustes" en tu cuenta.</label>
+            
+                    <button ion-button class="btnCard" text-center (click)="gotoPay()">Continuar a Paypal</button>
+                </ion-card-content>
+                </ion-card>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+</ion-content>
