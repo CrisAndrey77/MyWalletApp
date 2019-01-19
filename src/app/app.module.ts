@@ -16,7 +16,7 @@ import {SplashScreen} from '@ionic-native/splash-screen';
 import { Geolocation } from '@ionic-native/geolocation';
 import { UsuariosServicio } from '../services/usuarios.service';
 import { IonicStorageModule } from '@ionic/storage';
-import { AdMobFree } from '@ionic-native/admob-free';
+import {AdMob} from 'ionic-admob';
 
 @NgModule({
   declarations: [
@@ -41,7 +41,7 @@ import { AdMobFree } from '@ionic-native/admob-free';
     {provide: ErrorHandler, useClass: IonicErrorHandler},
     AngularFireAuth,
     UsuariosServicio,
-    AdMobFree,
+    AdMob,
   ]
 })
 export class AppModule {}

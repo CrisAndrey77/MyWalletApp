@@ -4,8 +4,8 @@ import {Gasto} from "../../models/gasto.model";
 import {UsuariosServicio} from "../../services/usuarios.service";
 import {Storage} from '@ionic/storage';
 import {Subscription} from "rxjs";
-import { AdMobFree, AdMobFreeBannerConfig } from '@ionic-native/admob-free';
 import {Platform} from 'ionic-angular';
+import {AdMob} from 'ionic-admob';
 
 
 //Basado en la pagina de graficos para obtener la información.
@@ -24,10 +24,9 @@ export class ListPage {
     public navParams: NavParams,
     private usuariosServicio: UsuariosServicio, 
     private storage: Storage,
-    public loadingCtrl: LoadingController,
-    public admob: AdMobFree, 
+    public loadingCtrl: LoadingController, 
+    private admob:AdMob,
     public platform: Platform) {
-      this.muestraBanner();
       this.obtieneArrayGastos();
   }
 
@@ -103,22 +102,4 @@ export class ListPage {
     }
   }
 
-  async muestraBanner(){
-    console.log(this.platform);
-      try {
-        const bannerConfig: AdMobFreeBannerConfig = {
-          id: 'ca-app-pub-3940256099942544/6300978111',
-          isTesting: true,
-          autoShow: true
-        }
-  
-        this.admob.banner.config(bannerConfig);
-  
-        const result = await this.admob.banner.prepare();
-        console.log(result);
-      }
-      catch (e) {
-        console.error(e);
-      }
-    }
 }
