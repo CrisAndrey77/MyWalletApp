@@ -21,6 +21,11 @@ export class PagoPremiunPage {
   public ocultar3: boolean = false;
   objetoRecibido: any;
 
+  planPremiun = {
+    tipoPlan : this.objetoRecibido.plan
+  };
+
+
   constructor(public navCtrl: NavController, public navParams: NavParams, private payPal: PayPal) {
     this.objetoRecibido = navParams.data;
   }
@@ -62,10 +67,13 @@ export class PagoPremiunPage {
         // Only needed if you get an "Internal Service Error" after PayPal login!
         //payPalShippingAddressOption: 2 // PayPalShippingAddressOptionPayPal
       })).then(() => {
-        let payment = new PayPalPayment('2.99', 'USD', 'Plan Mensual', 'sale');
-        this.payPal.renderSinglePaymentUI(payment).then(() => {
+        let payment = new PayPalPayment(this.objetoRecibido.pago, 'USD', 'Plan Premiun', 'sale');
+        this.payPal.renderSinglePaymentUI(payment).then((response) => {
           // Successfully paid
     
+          //this.navCtrl.push('HomePage', response.response);
+          this.navCtrl.push('HomePage', this.planPremiun);
+          
           // Example sandbox response
           //
           // {

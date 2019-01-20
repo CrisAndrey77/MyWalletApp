@@ -17,7 +17,7 @@ import { Subscription } from 'rxjs/Subscription';
 export class HomePage {
 
   @ViewChild('doughnutCanvas') doughnutCanvas;
-
+  
   barChart: any;
  // lineChart: any;
   pieChart: any;
@@ -30,12 +30,13 @@ export class HomePage {
   email:any;
   num_categorias:any;
   gasto_total:any;
-
+  objetoPremiun: any;
   
 
   constructor(public navCtrl: NavController, public navParams: NavParams,
     public angularFireAuth: AngularFireAuth, private storage: Storage,
     private usuariosServicio: UsuariosServicio) {
+      this.objetoPremiun = navParams.data;
       
       this.gasto_total = 0;
     //this.email = navParams.get('email');
