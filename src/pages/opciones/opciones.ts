@@ -27,7 +27,8 @@ export class OpcionesPage {
     nombre: '',
     ingresoMensual: 0,
     registroDeEntradas:'',
-    establecimientos:''
+    establecimientos:'',
+    premium:false,
   };
   temp: Usuario = {
     key: '',
@@ -35,7 +36,8 @@ export class OpcionesPage {
     nombre: '',
     ingresoMensual: 0,
     registroDeEntradas:'',
-    establecimientos:''
+    establecimientos:'',
+    premium:false
   };
   llaveTemp:string;
   llaveMaestra:string;
@@ -97,7 +99,8 @@ editarUsuario(){
     ingresoMensual:0,
     correo:'',
     establecimientos:'',
-    registroDeEntradas:''
+    registroDeEntradas:'',
+    premium:false
   }
   usuarioEnvia.nombre = this.usuario.nombre;
   usuarioEnvia.correo = this.usuario.correo;

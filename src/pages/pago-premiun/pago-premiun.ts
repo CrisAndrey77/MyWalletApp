@@ -3,6 +3,11 @@ import { IonicPage, NavController, NavParams, Platform } from 'ionic-angular';
 import { PayPal, PayPalPayment, PayPalConfiguration } from '@ionic-native/paypal';
 import {AdMob} from 'ionic-admob';
 
+import { Usuario } from '../../models/usuario.model';
+import { UsuariosServicio } from '../../services/usuarios.service';
+import { Storage } from '@ionic/storage';
+import { Subscription } from 'rxjs';
+
 /**
  * Generated class for the PagoPremiunPage page.
  *
@@ -23,9 +28,24 @@ export class PagoPremiunPage {
   plan: string; 
   objetoRecibido: any;
 
+
+  usuarioListaSubscription: Subscription;
+  usuario: Usuario = {
+    key: '',
+    correo:'',
+    nombre: '',
+    ingresoMensual: 0,
+    registroDeEntradas:'',
+    establecimientos:'',
+    premium:false,
+  };
+  email:any;
+
   constructor(public navCtrl: NavController, public navParams: NavParams, private payPal: PayPal,
     private admob: AdMob,
-    private platform: Platform) {
+    private platform: Platform,
+    private usuarioServicio: UsuariosServicio,
+    private storage: Storage) {
     this.objetoRecibido = navParams.data;
     this.plan = navParams.get("plan");
   }
@@ -77,7 +97,32 @@ export class PagoPremiunPage {
           // Successfully paid
     
           //this.navCtrl.push('HomePage', response.response);
-          this.navCtrl.setRoot("HomePage");
+
+          this.storage.get('email').then((val) => {
+            this.email = val;
+              this.usuarioListaSubscription =this.usuarioServicio.obtenerUsuarioPorEmail(this.email).snapshotChanges().map(changes => {
+                return changes.map(c => ({
+                  key: c.payload.key, ...c.payload.val()
+                }))
+              })
+              .subscribe(users => {            
+                this.usuario.nombre =users[0].nombre;
+                this.usuario.ingresoMensual = users[0].ingresoMensual;
+                this.usuario.correo = users[0].correo;
+                this.usuario.key = users[0].key;
+
+                // ACA SE ASIGNA EL PREMIUM
+                this.usuario.premium = true;
+                this.storage.set('premium', this.usuario.premium);
+
+                this.usuarioServicio.editarUsurario(this.usuario, this.usuario.key);
+
+                this.navCtrl.setRoot("HomePage");
+              });
+             
+            });
+
+            
           
           // Example sandbox response
           //

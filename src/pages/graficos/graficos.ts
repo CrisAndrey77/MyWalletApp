@@ -488,6 +488,7 @@ export class GraficosPage {
   selectSearchResult(item){
     console.log(item);
     this.autocomplete.input = item;
+    this.autocompleteItems = [];
     this.actualizarGraficoPie();
   }
 }
