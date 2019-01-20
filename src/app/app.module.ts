@@ -18,7 +18,6 @@ import { UsuariosServicio } from '../services/usuarios.service';
 import { IonicStorageModule } from '@ionic/storage';
 import { PayPal } from '@ionic-native/paypal';
 import {AdMob} from 'ionic-admob';
-import { PayPal, PayPalPayment, PayPalConfiguration } from '@ionic-native/paypal';
 
 @NgModule({
   declarations: [
