@@ -1,9 +1,11 @@
 import {Component} from '@angular/core';
-import {NavController, NavParams, IonicPage, LoadingController, PopoverController} from 'ionic-angular';
+import {NavController, NavParams, IonicPage, LoadingController} from 'ionic-angular';
 import {Gasto} from "../../models/gasto.model";
 import {UsuariosServicio} from "../../services/usuarios.service";
 import {Storage} from '@ionic/storage';
 import {Subscription} from "rxjs";
+import {Platform} from 'ionic-angular';
+import {AdMob} from 'ionic-admob';
 
 
 //Basado en la pagina de graficos para obtener la información.
@@ -14,7 +16,6 @@ import {Subscription} from "rxjs";
 })
 
 export class ListPage {
-  username:any;
   listaGastosSubscription: Subscription;
   arrayGastos: Gasto[] = new Array();
   items: Array<{ categoria: string, valor: number, entrada:number }> = new Array<{categoria: string, valor: number, entrada:number}>();
@@ -23,7 +24,9 @@ export class ListPage {
     public navParams: NavParams,
     private usuariosServicio: UsuariosServicio, 
     private storage: Storage,
-    public loadingCtrl: LoadingController) {
+    public loadingCtrl: LoadingController, 
+    private admob:AdMob,
+    public platform: Platform) {
       this.obtieneArrayGastos();
   }
 
@@ -35,10 +38,10 @@ export class ListPage {
     setTimeout(() =>{
       carga.dismiss();
     }, 5000);
+
     this.storage.get('email').then(
       (valor) => {
         let email = valor;
-        this.username = email;
         this.listaGastosSubscription = this.usuariosServicio.obtenerGastoPorUsuario2(email)
           .snapshotChanges().map(changes => {
             return changes.map(c => ({
@@ -98,4 +101,5 @@ export class ListPage {
       this.items = this.items.splice(10, tamano);
     }
   }
+
 }

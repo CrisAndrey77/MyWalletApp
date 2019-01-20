@@ -32,8 +32,15 @@ export class PlacesPage {
     public zone: NgZone,
     public loadingCtrl: LoadingController,
     public geolocation: Geolocation,
-    private storage: Storage) {
-
+    private storage: Storage,
+    private loadingController:LoadingController) {
+      this.loading = this.loadingController.create({
+        content: 'Cargando establecimientos, por favor espere',
+      });
+      this.loading.present();
+      setTimeout(() =>{
+        this.loading.dismiss();
+      }, 15000);
       this.geocoder = new google.maps.Geocoder;
       let elem = document.createElement("div")
       this.GooglePlaces = new google.maps.places.PlacesService(elem);
@@ -42,7 +49,6 @@ export class PlacesPage {
         input: ''
       };
       this.autocompleteItems = [];
-      this.loading = this.loadingCtrl.create();
 
 
       this.geolocation.getCurrentPosition().then((resp) => {
@@ -74,9 +80,6 @@ export class PlacesPage {
         console.log('Error getting location', error);
         this.loading.dismiss();
       });
-      
-      
-
   }
 
   ionViewDidLoad() {

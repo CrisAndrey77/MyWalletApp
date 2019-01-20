@@ -19,6 +19,10 @@ export class UsuariosServicio {
         return this.usuarioListaRef.push(usuario);
     }
 
+    editarUsurario(usuario: Usuario, key:any){
+      return this.usuarioListaRef.update(key,usuario);
+    }
+
     agregarGasto(gasto: Gasto) {
         return this.gastoListaRef.push(gasto);
     }

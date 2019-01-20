@@ -8,13 +8,12 @@
 
   <ion-navbar color="primary">
     <button ion-button menuToggle>
-        <ion-icon name="menu"></ion-icon>
-      </button>
-  <ion-title>Opciones de la aplicación</ion-title>
-</ion-navbar>
+      <ion-icon name="menu"></ion-icon>
+    </button>
+    <ion-title>Opciones de la aplicación</ion-title>
+  </ion-navbar>
 
 </ion-header>
-
 
 
 <ion-content padding>
@@ -22,27 +21,25 @@
     <ion-card-header>
       <ion-card-title>Actualizar datos de usuario</ion-card-title>
     </ion-card-header>
+
     <ion-card-content>
+
+
       <ion-item>
         <ion-label>Nombre:</ion-label>
-        <ion-input></ion-input>
+        <ion-input type="text" [(ngModel)]="usuario.nombre" value="{{usuario.nombre}}"></ion-input>
       </ion-item>
 
       <ion-item>
         <ion-label>
-          Correo electrónico:</ion-label>
-        <ion-input></ion-input>
+          Ingresos:
+        </ion-label>
+        <ion-input type="number" [(ngModel)]="usuario.ingresoMensual" value="{{usuario.ingresoMensual}}"></ion-input>
       </ion-item>
 
       <ion-item>
-        <ion-label>
-          Contraseña:</ion-label>
-        <ion-input></ion-input>
+        <button ion-button (click)="editarUsuario()">Guardar</button>
       </ion-item>
-
-      <ion-item> <button>Guardar</button></ion-item>
-
-
 
     </ion-card-content>
   </ion-card>
