@@ -27,6 +27,7 @@ export class PlacesPage {
   loading: any;
   position:any;
   place:any;
+  radio:any;
 
   constructor(public navCtrl: NavController, public navParams: NavParams, 
     public zone: NgZone,
@@ -34,6 +35,7 @@ export class PlacesPage {
     public geolocation: Geolocation,
     private storage: Storage,
     private loadingController:LoadingController) {
+      this.radio = '1000';
       this.loading = this.loadingController.create({
         content: 'Cargando establecimientos, por favor espere',
       });
@@ -63,7 +65,7 @@ export class PlacesPage {
 
         this.GooglePlaces.nearbySearch({
         location: this.position,
-        radius: '1000',
+        radius: this.radio,
         types: ['restaurant'], //check other types here https://developers.google.com/places/web-service/supported_types
         key: 'AIzaSyBlWeLtK5QpzOMvKF7M1s-f9a7HWHQUHlY'
       }, (near_places) => {
@@ -116,11 +118,14 @@ export class PlacesPage {
   selectSearchResult(item){
     this.loading = this.loadingCtrl.create();
     this.loading.present();
+    setTimeout(() =>{
+      this.loading.dismiss();
+    }, 500);
     this.autocompleteItems = [];
    
         this.GooglePlaces.nearbySearch({
           location: this.position,
-          radius: '1000',
+          radius: this.radio,
           types: [item], //check other types here https://developers.google.com/places/web-service/supported_types
           key: 'AIzaSyBlWeLtK5QpzOMvKF7M1s-f9a7HWHQUHlY'
         }, (near_places) => {
@@ -129,7 +134,6 @@ export class PlacesPage {
             for (var i = 0; i < near_places.length; i++) {
               this.nearbyItems.push(near_places[i]);
             }
-            this.loading.dismiss();
           });
         })
       }
@@ -143,6 +147,10 @@ export class PlacesPage {
         }
         this.storage.set('place', lugar);
         this.navCtrl.push('RegistrarEstablecimientoPage');
+  }
+
+  abrirRegistrarNuevo(){
+    this.navCtrl.push('RegistrarNuevoEstablecimientoPage');
   }
 
 

@@ -8,6 +8,14 @@
   <ion-toolbar color="primary">
     <ion-searchbar [(ngModel)]="autocomplete.input" (ionInput)="updateSearchResults()" placeholder="Buscar establecimientos"></ion-searchbar>
   </ion-toolbar>
+
+
+  <ion-item>
+      <ion-label color="primary" Stacked Label>Radio de búsqueda (metros)</ion-label>
+      <ion-input [(ngModel)]="radio"></ion-input>
+  </ion-item>
+
+  <button id="botonAgregar" ion-button (click)='abrirRegistrarNuevo()'>¿El lugar no aparece? Agregar</button>
 </ion-header>
 
 

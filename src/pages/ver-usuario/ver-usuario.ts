@@ -28,7 +28,8 @@ export class VerUsuarioPage {
     correo: '',
     ingresoMensual: 0,
     registroDeEntradas: '',
-    establecimientos: ''
+    establecimientos: '',
+    premium:false
   };
   listaUsuariosSubscription: Subscription;
 

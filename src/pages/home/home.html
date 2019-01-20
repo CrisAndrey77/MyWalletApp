@@ -16,7 +16,7 @@
       </div>
 -->
 <label>{{objetoPremiun.tipoPlan}}</label>
-<button block id="botonPremium" ion-button (click)='openPremiun()'>Hazte Premium</button>
+<button block id="botonPremium" ion-button (click)='openPremiun()' *ngIf="esPremium === false">Hazte Premium</button>
 
       <ion-card>
     

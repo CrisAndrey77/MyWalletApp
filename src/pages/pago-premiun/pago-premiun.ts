@@ -3,6 +3,11 @@ import { IonicPage, NavController, NavParams, Platform } from 'ionic-angular';
 import { PayPal, PayPalPayment, PayPalConfiguration } from '@ionic-native/paypal';
 import {AdMob} from 'ionic-admob';
 
+import { Usuario } from '../../models/usuario.model';
+import { UsuariosServicio } from '../../services/usuarios.service';
+import { Storage } from '@ionic/storage';
+import { Subscription } from 'rxjs';
+
 /**
  * Generated class for the PagoPremiunPage page.
  *
@@ -23,16 +28,27 @@ export class PagoPremiunPage {
   plan: string; 
   objetoRecibido: any;
 
+
+  usuarioListaSubscription: Subscription;
+  usuario: Usuario = {
+    key: '',
+    correo:'',
+    nombre: '',
+    ingresoMensual: 0,
+    registroDeEntradas:'',
+    establecimientos:'',
+    premium:false,
+  };
+  email:any;
+
   constructor(public navCtrl: NavController, public navParams: NavParams, private payPal: PayPal,
     private admob: AdMob,
-    private platform: Platform) {
+    private platform: Platform,
+    private usuarioServicio: UsuariosServicio,
+    private storage: Storage) {
     this.objetoRecibido = navParams.data;
     this.plan = navParams.get("plan");
   }
-
-  /*planPremiun = {
-    tipoPlan : this.objetoRecibido.plan
-  }*/
 
   
   ionViewDidLoad() {
@@ -77,25 +93,30 @@ export class PagoPremiunPage {
           // Successfully paid
     
           //this.navCtrl.push('HomePage', response.response);
-          this.navCtrl.setRoot("HomePage");
-          
-          // Example sandbox response
-          //
-          // {
-          //   "client": {
-          //     "environment": "sandbox",
-          //     "product_name": "PayPal iOS SDK",
-          //     "paypal_sdk_version": "2.16.0",
-          //     "platform": "iOS"
-          //   },
-          //   "response_type": "payment",
-          //   "response": {
-          //     "id": "PAY-1AB23456CD789012EF34GHIJ",
-          //     "state": "approved",
-          //     "create_time": "2016-10-03T13:33:33Z",
-          //     "intent": "sale"
-          //   }
-          // }
+
+          this.storage.get('email').then((val) => {
+            this.email = val;
+              this.usuarioListaSubscription =this.usuarioServicio.obtenerUsuarioPorEmail(this.email).snapshotChanges().map(changes => {
+                return changes.map(c => ({
+                  key: c.payload.key, ...c.payload.val()
+                }))
+              })
+              .subscribe(users => {            
+                this.usuario.nombre =users[0].nombre;
+                this.usuario.ingresoMensual = users[0].ingresoMensual;
+                this.usuario.correo = users[0].correo;
+                this.usuario.key = users[0].key;
+
+                // ACA SE ASIGNA EL PREMIUM
+                this.usuario.premium = true;
+                this.storage.set('premium', this.usuario.premium);
+
+                this.usuarioServicio.editarUsurario(this.usuario, this.usuario.key);
+
+                this.navCtrl.setRoot("HomePage");
+              });
+             
+            });
         }, () => {
           // Error or render dialog closed without being successful
         });
@@ -109,9 +130,20 @@ export class PagoPremiunPage {
   }
 
   ionViewWillLeave(){
-    this.platform.ready().then(() => {
-    console.log('All set');
-    this.admob.banner.show({ id: "ca-app-pub-3940256099942544/6300978111" });
+    this.storage.get('premium').then((val) => {
+      if(val){
+        if(val===true){
+          this.admob.banner.hide('ca-app-pub-3940256099942544/6300978111');
+        }else{
+          this.admob.banner.show({
+            id: 'ca-app-pub-3940256099942544/6300978111'
+          });
+        }
+      }else{
+        this.admob.banner.show({
+          id: 'ca-app-pub-3940256099942544/6300978111'
+        });
+      }
     });
   }
 }
