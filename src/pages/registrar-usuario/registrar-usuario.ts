@@ -24,7 +24,8 @@ export class RegistrarUsuarioPage {
     correo: '',
     ingresoMensual: 0,
     registroDeEntradas: '',
-    establecimientos: ''
+    establecimientos: '',
+    premium:false
   };
 
   constructor(public navCtrl: NavController, public navParams: NavParams,

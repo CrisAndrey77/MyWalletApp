@@ -8,6 +8,7 @@ import { Observable } from 'rxjs/Observable'
 import { Gasto } from '../../models/gasto.model'
 import { UsuariosServicio } from '../../services/usuarios.service';
 import { Subscription } from 'rxjs/Subscription';
+import { AdMob } from 'ionic-admob';
 
 @IonicPage()
 @Component({
@@ -17,7 +18,7 @@ import { Subscription } from 'rxjs/Subscription';
 export class HomePage {
 
   @ViewChild('doughnutCanvas') doughnutCanvas;
-
+  
   barChart: any;
  // lineChart: any;
   pieChart: any;
@@ -28,12 +29,17 @@ export class HomePage {
   categorias = new Array();
   valores = new Array();
   email:any;
-
-  
+  num_categorias:any;
+  gasto_total:any;
+  objetoPremiun: any;
+  esPremium: boolean;
 
   constructor(public navCtrl: NavController, public navParams: NavParams,
     public angularFireAuth: AngularFireAuth, private storage: Storage,
-    private usuariosServicio: UsuariosServicio) {
+    private usuariosServicio: UsuariosServicio, private admob: AdMob) {
+      this.objetoPremiun = navParams.data;
+      
+      this.gasto_total = 0;
     //this.email = navParams.get('email');
 
     storage.get('email').then((val) => {
@@ -58,14 +64,40 @@ export class HomePage {
             this.valores.push(+g.valor);
           }
         }
+
+
         //this.getDoughnutChart();
         this.graficosInit();
+        this.num_categorias = this.categorias.length;
+
+        for(let g of this.valores){
+          this.gasto_total = +this.gasto_total + +g;
+        }
         
       })
 
 
     });
 
+    //Si el usuario es premium, esconde los anuncios y el boton de hacerse premium
+    this.storage.get('premium').then((val) => {
+      if(val){
+        if(val===true){
+          this.admob.banner.hide('ca-app-pub-3940256099942544/6300978111');
+          this.esPremium = true;
+        }else{
+          this.admob.banner.show({
+            id: 'ca-app-pub-3940256099942544/6300978111'
+          });
+          this.esPremium = false;
+        }
+      }else{
+        this.admob.banner.show({
+          id: 'ca-app-pub-3940256099942544/6300978111'
+        });
+        this.esPremium = false;
+      }
+    });
   }
 
   /* ES IMPORTANTE QUE, CUANDO SE ABANDONE LA PAGINA,

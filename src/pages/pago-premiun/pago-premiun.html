@@ -60,3 +60,57 @@
     </ion-row>
   </ion-grid>
 </ion-content>
+    <ion-navbar color="primary">
+        <button ion-button menuToggle>
+            <ion-icon name="menu"></ion-icon>
+          </button>
+  
+      <button  (click)='goPremiun()' outline style="color: rgba(82,86,97,1)"  class="btnPlan" ion-button>Ver Planes</button>
+  
+    </ion-navbar> 
+  </ion-header>
+  
+  
+  <ion-content id="font" padding>
+  
+    <ion-grid>
+      <ion-row>
+        <ion-col>
+            <ion-card id="cardPremiun">
+                <ion-card-header class= "cardHeader">
+                    <div text-center id="rowFirst">
+                        <p style="color:#2e9fa1;" class="tituloCardPremiun">Los beneficios que <br> obtienes con tu plan <br> Premiun {{objetoRecibido.plan}} </p>
+                        
+                        <p style="color: #2e9fa1;" class="tituloCardPremiun">por solo $ {{objetoRecibido.pago}}</p> 
+                    </div>
+                </ion-card-header>
+                <ion-card-content>
+                      <div text-center>
+                        <p class="beneficios"><ion-icon class="icons" name="checkmark"></ion-icon> Obten más estadística de tus gastos</p>
+                        <p class="beneficios"><ion-icon class="icons" name="checkmark"></ion-icon> Sin anuncios</p>
+                        <p class="beneficios"><ion-icon class="icons" name="checkmark"></ion-icon> Revisa el historial de tus gastos pasados</p>
+                      </div>
+                  </ion-card-content>
+                  </ion-card>
+        </ion-col>
+        <ion-col>
+            <ion-card id="cardPaypal" >
+                <ion-card-header class="cardHeader">
+                    <div class="row">
+                        <img id="imgPaypal" src="/assets/imgs/p1.png">
+                        <label class="titulotarjeta">Paypal</label>
+                    </div>
+                </ion-card-header>
+                <ion-card-content>
+                        <label class="labelCont">Haz clic en el botón de abajo para realizar el pago con PayPal.</label>
+                        <label id="labelConf">Confirmo que he leído y aceptado el Condiciones generales de uso. Al dar click en "Comenzar mi suscripción a MyWallet Calculator Premium", comienzas a disfrutar de 
+                        las características premiun que te ofrecemos y aceptas que se realizará automáticamente el cargo de la cuota de suscripción, hasta que la canceles. 
+                        Tienes la posibilidad de cancelar tu suscripción en cualquier momento llendo a "Ajustes" en tu cuenta.</label>
+              
+                      <button ion-button class="btnCard" text-center (click)="makePayment()">Continuar a Paypal</button>
+                  </ion-card-content>
+                  </ion-card>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+  </ion-content>

@@ -5,4 +5,5 @@ export interface Usuario {
     ingresoMensual: number;
     registroDeEntradas: string;
     establecimientos: string;
+    premium:boolean
 }

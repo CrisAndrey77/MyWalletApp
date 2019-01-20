@@ -16,17 +16,24 @@
       {{email}}
       </div>
 -->
-<button block id="botonPremium" ion-button (click)='openPremiun()'>Hazte Premium</button>
+<label>{{objetoPremiun.tipoPlan}}</label>
+<button block id="botonPremium" ion-button (click)='openPremiun()' *ngIf="esPremium === false">Hazte Premium</button>
 
       <ion-card>
     
-        <ion-card-header id="encabezadoGrafico">
-          Gráfico de dona
+        <ion-card-header id="encabezadoGrafico"  *ngIf="num_categorias">
+          Mostrando gastos <p id="encabezadoGrafico"> {{num_categorias}} categorías</p>
+
         </ion-card-header>
     
         <ion-card-content class="chart-container">
             <canvas #doughnutCanvas id="chart"></canvas> 
        </ion-card-content>
+
+       <ion-card-header id="encabezadoGrafico"  *ngIf="gasto_total">
+        Gasto total realizado:  {{gasto_total}} colones
+
+      </ion-card-header>
     
       </ion-card>
 

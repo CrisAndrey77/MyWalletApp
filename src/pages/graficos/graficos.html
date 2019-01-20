@@ -19,30 +19,71 @@
 <ion-content padding>
 
   <div class="container">
-    <h1>Graficos de Tipo <small>Barra</small></h1>
-    <hr>
+
  
   </div>
 
   <ion-card>
+    
     <ion-card-header>
-      Graficos de Barras
+        Grafico de Barras <p>Mostrando gastos por categoría</p>
+  
+        <!--  <ion-item>
+          <h1 *ngIf="dateOfEvent">{{dateOfEvent}}</h1>
+        </ion-item>
+  
+        -->
+      <ion-item id="fecha_item">
+        <ion-label id="label">Desde:</ion-label>
+          <ion-datetime (ionChange)="actualizarGraficoBarra()" displayFormat="MMM, DD, YYYY" pickerFormat="MMM, DD, YYYY" [(ngModel)]="dateFromBarra"> ... </ion-datetime>
+      </ion-item>
+
+
+      <ion-item id="fecha_item">
+        <ion-label id="label">Hasta:</ion-label>
+          <ion-datetime (ionChange)="actualizarGraficoBarra()" displayFormat="MMM, DD, YYYY" pickerFormat="MMM, DD, YYYY" [(ngModel)]="dateToBarra"> ... </ion-datetime>
+      </ion-item>
+
+
     </ion-card-header>
 
-    <ion-card-content>
+    <ion-card-content class="chart-container">
       <canvas #barCanvas></canvas> 
     </ion-card-content>
 
     <ion-card-header>
-      Gráficos tipo Dona
+      Gráfico tipo Pie <p>Mostrando gastos según</p> <p> categoría seleccionada</p>
+
+      <ion-item id="fecha_item">
+        <ion-label id="label">Desde:</ion-label>
+          <ion-datetime (ionChange)="actualizarGraficoPie()" displayFormat="MMM, DD, YYYY" pickerFormat="MMM, DD, YYYY" [(ngModel)]="dateFromPie"> ... </ion-datetime>
+      </ion-item>
+
+
+      <ion-item id="fecha_item">
+        <ion-label id="label">Hasta:</ion-label>
+          <ion-datetime (ionChange)="actualizarGraficoPie()" displayFormat="MMM, DD, YYYY" pickerFormat="MMM, DD, YYYY" [(ngModel)]="dateToPie"> ... </ion-datetime>
+      </ion-item>
+      
+      <ion-toolbar color="primary">
+          <ion-searchbar [(ngModel)]="autocomplete.input" (ionInput)="updateSearchResults()" placeholder="Buscar categorias"></ion-searchbar>
+        </ion-toolbar>
+
+      <ion-list [hidden]="autocompleteItems.length == 0">
+        <ion-item *ngFor="let item of autocompleteItems" tappable (click)="selectSearchResult(item)">
+        {{ item }}
+        </ion-item>
+      </ion-list>
+
     </ion-card-header>
 
-    <ion-card-content>
-      <canvas #doughnutCanvas></canvas> 
+
+    <ion-card-content class="chart-container">
+      <canvas #pieCanvas></canvas> 
     </ion-card-content>
 
 
-
+<!--
     <ion-card-header>
       Gráficos tipo Pie
     </ion-card-header>
@@ -50,6 +91,7 @@
     <ion-card-content>
       <canvas #pieCanvas></canvas> 
     </ion-card-content>
+  -->
 
 
   </ion-card>

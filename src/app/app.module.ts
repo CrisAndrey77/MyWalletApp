@@ -18,6 +18,7 @@ import { UsuariosServicio } from '../services/usuarios.service';
 import { IonicStorageModule } from '@ionic/storage';
 import { PayPal } from '@ionic-native/paypal';
 import {AdMob} from 'ionic-admob';
+import { PayPal, PayPalPayment, PayPalConfiguration } from '@ionic-native/paypal';
 
 @NgModule({
   declarations: [
@@ -42,8 +43,8 @@ import {AdMob} from 'ionic-admob';
     {provide: ErrorHandler, useClass: IonicErrorHandler},
     AngularFireAuth,
     UsuariosServicio,
-    PayPal,
-    AdMob
+    AdMob,
+    PayPal
   ]
 })
 export class AppModule {}

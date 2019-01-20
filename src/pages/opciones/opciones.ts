@@ -27,7 +27,8 @@ export class OpcionesPage {
     nombre: '',
     ingresoMensual: 0,
     registroDeEntradas:'',
-    establecimientos:''
+    establecimientos:'',
+    premium:false,
   };
   temp: Usuario = {
     key: '',
@@ -35,7 +36,8 @@ export class OpcionesPage {
     nombre: '',
     ingresoMensual: 0,
     registroDeEntradas:'',
-    establecimientos:''
+    establecimientos:'',
+    premium:false
   };
   llaveTemp:string;
   llaveMaestra:string;
@@ -70,7 +72,7 @@ export class OpcionesPage {
     carga.present();
     setTimeout(() =>{
       carga.dismiss();
-    }, 3000);
+    }, 500);
     this.storage.get('usuario').then((us) => {  
       this.storage.get('email').then((val) => {
         this.email = val;
@@ -97,12 +99,21 @@ editarUsuario(){
     ingresoMensual:0,
     correo:'',
     establecimientos:'',
-    registroDeEntradas:''
+    registroDeEntradas:'',
+    premium:false
   }
   usuarioEnvia.nombre = this.usuario.nombre;
   usuarioEnvia.correo = this.usuario.correo;
   usuarioEnvia.ingresoMensual = this.usuario.ingresoMensual;
   this.usuarioServicio.editarUsurario(this.usuario, this.usuario.key);
+  this.navCtrl.setRoot("HomePage");
 }
+
+/* ES IMPORTANTE QUE, CUANDO SE ABANDONE LA PAGINA,
+  SE DESUSCRIBA DE LA CONSULTA A LA BASE DE DATOS, PARA QUE NO HAYAN ERRORES
+  AL DESLOGEARSE DE LA APLICACION*/
+  ionViewWillLeave(){
+    this.usuarioListaSubscription.unsubscribe();
+  }
 
 }
