@@ -65,7 +65,7 @@ export class MyApp {
         // y luego de recuperar su nombre, se guarda en el local storage para evitar
         // futuras consultas a la base innecesarias.
         if(!us){
-
+          
           this.listaUsuariosSubscription =this.usuariosServicio.obtenerUsuarioPorEmail(this.email).snapshotChanges().map(changes => {
             return changes.map(c => ({
               key: c.payload.key, ...c.payload.val()
