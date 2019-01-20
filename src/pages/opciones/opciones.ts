@@ -103,6 +103,7 @@ editarUsuario(){
   usuarioEnvia.correo = this.usuario.correo;
   usuarioEnvia.ingresoMensual = this.usuario.ingresoMensual;
   this.usuarioServicio.editarUsurario(this.usuario, this.usuario.key);
+  this.navCtrl.setRoot("HomePage");
 }
 
 /* ES IMPORTANTE QUE, CUANDO SE ABANDONE LA PAGINA,

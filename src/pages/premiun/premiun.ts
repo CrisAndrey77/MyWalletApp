@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams } from 'ionic-angular';
-
+import { IonicPage, NavController, NavParams, Platform } from 'ionic-angular';
+import { AdMob } from 'ionic-admob';
 /**
  * Generated class for the PremiunPage page.
  *
@@ -27,11 +27,12 @@ export class PremiunPage {
     metodo: "año"
   };
 
-  constructor(public navCtrl: NavController, public navParams: NavParams) {
+  constructor(public navCtrl: NavController, public navParams: NavParams, private platform: Platform, private admob:AdMob) {
   }
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad PremiunPage');
+    this.admob.banner.hide('ca-app-pub-3940256099942544/6300978111');
   }
 
   goPremiunMensual() {

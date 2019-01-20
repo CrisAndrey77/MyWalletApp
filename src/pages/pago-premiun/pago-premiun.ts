@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, Platform } from 'ionic-angular';
 import { PayPal, PayPalPayment, PayPalConfiguration } from '@ionic-native/paypal';
+import {AdMob} from 'ionic-admob';
 
 /**
  * Generated class for the PagoPremiunPage page.
@@ -19,20 +20,24 @@ export class PagoPremiunPage {
   public ocultar1: boolean = true;
   public ocultar2: boolean = false;
   public ocultar3: boolean = false;
+  plan: string; 
   objetoRecibido: any;
 
-  planPremiun = {
-    tipoPlan : this.objetoRecibido.plan
-  };
-
-
-  constructor(public navCtrl: NavController, public navParams: NavParams, private payPal: PayPal) {
+  constructor(public navCtrl: NavController, public navParams: NavParams, private payPal: PayPal,
+    private admob: AdMob,
+    private platform: Platform) {
     this.objetoRecibido = navParams.data;
+    this.plan = navParams.get("plan");
   }
+
+  /*planPremiun = {
+    tipoPlan : this.objetoRecibido.plan
+  }*/
 
   
   ionViewDidLoad() {
     console.log('ionViewDidLoad PagoPremiunPage');
+    this.admob.banner.hide('ca-app-pub-3940256099942544/6300978111');
   }
 
   showHide1(){
@@ -67,12 +72,12 @@ export class PagoPremiunPage {
         // Only needed if you get an "Internal Service Error" after PayPal login!
         //payPalShippingAddressOption: 2 // PayPalShippingAddressOptionPayPal
       })).then(() => {
-        let payment = new PayPalPayment(this.objetoRecibido.pago, 'USD', 'Plan Premiun', 'sale');
+        let payment = new PayPalPayment(this.objetoRecibido.pago, 'USD', 'Plan Premium', 'sale');
         this.payPal.renderSinglePaymentUI(payment).then((response) => {
           // Successfully paid
     
           //this.navCtrl.push('HomePage', response.response);
-          this.navCtrl.push('HomePage', this.planPremiun);
+          this.navCtrl.setRoot("HomePage");
           
           // Example sandbox response
           //
@@ -103,4 +108,10 @@ export class PagoPremiunPage {
     });
   }
 
+  ionViewWillLeave(){
+    this.platform.ready().then(() => {
+    console.log('All set');
+    this.admob.banner.show({ id: "ca-app-pub-3940256099942544/6300978111" });
+    });
+  }
 }
