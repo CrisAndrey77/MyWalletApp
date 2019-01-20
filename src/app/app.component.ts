@@ -13,7 +13,6 @@ import {GraficosPage} from '../pages/graficos/graficos';
 import {OpcionesPage} from "../pages/opciones/opciones";
 import { LoginPage } from "../pages/login/login";
 import { VerUsuarioPage } from "../pages/ver-usuario/ver-usuario";
-import { AdMob } from 'ionic-admob';
 
 @Component({
   templateUrl: 'app.html'
@@ -34,8 +33,7 @@ export class MyApp {
     public menu: MenuController,
     private angularFireAuth: AngularFireAuth,
     private storage: Storage,
-    private usuariosServicio: UsuariosServicio,
-    private admob:AdMob) {
+    private usuariosServicio: UsuariosServicio) {
     this.initializeApp();
 
     // used for an example of ngFor and navigation
@@ -107,7 +105,7 @@ export class MyApp {
       });
 
       console.log('All set');
-
+      
       /*this.storage.get('premium').then((val) => {
         if(val){
           if(val == true){
@@ -116,11 +114,9 @@ export class MyApp {
             this.admob.banner.show({ id: "ca-app-pub-3940256099942544/6300978111" });
           }
         } else{*/
-          this.admob.banner.show({ id: "ca-app-pub-3940256099942544/6300978111" });
+          //this.admob.banner.show({ id: "ca-app-pub-3940256099942544/6300978111" });
         /*}
       });*/
-
-
     });
   }
 

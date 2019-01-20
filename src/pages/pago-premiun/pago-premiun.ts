@@ -154,9 +154,20 @@ export class PagoPremiunPage {
   }
 
   ionViewWillLeave(){
-    this.platform.ready().then(() => {
-    console.log('All set');
-    this.admob.banner.show({ id: "ca-app-pub-3940256099942544/6300978111" });
+    this.storage.get('premium').then((val) => {
+      if(val){
+        if(val===true){
+          this.admob.banner.hide('ca-app-pub-3940256099942544/6300978111');
+        }else{
+          this.admob.banner.show({
+            id: 'ca-app-pub-3940256099942544/6300978111'
+          });
+        }
+      }else{
+        this.admob.banner.show({
+          id: 'ca-app-pub-3940256099942544/6300978111'
+        });
+      }
     });
   }
 }

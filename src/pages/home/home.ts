@@ -8,6 +8,7 @@ import { Observable } from 'rxjs/Observable'
 import { Gasto } from '../../models/gasto.model'
 import { UsuariosServicio } from '../../services/usuarios.service';
 import { Subscription } from 'rxjs/Subscription';
+import { AdMob } from 'ionic-admob';
 
 @IonicPage()
 @Component({
@@ -31,11 +32,11 @@ export class HomePage {
   num_categorias:any;
   gasto_total:any;
   objetoPremiun: any;
-  
+  esPremium: boolean;
 
   constructor(public navCtrl: NavController, public navParams: NavParams,
     public angularFireAuth: AngularFireAuth, private storage: Storage,
-    private usuariosServicio: UsuariosServicio) {
+    private usuariosServicio: UsuariosServicio, private admob: AdMob) {
       this.objetoPremiun = navParams.data;
       
       this.gasto_total = 0;
@@ -78,6 +79,25 @@ export class HomePage {
 
     });
 
+    //Si el usuario es premium, esconde los anuncios y el boton de hacerse premium
+    this.storage.get('premium').then((val) => {
+      if(val){
+        if(val===true){
+          this.admob.banner.hide('ca-app-pub-3940256099942544/6300978111');
+          this.esPremium = true;
+        }else{
+          this.admob.banner.show({
+            id: 'ca-app-pub-3940256099942544/6300978111'
+          });
+          this.esPremium = false;
+        }
+      }else{
+        this.admob.banner.show({
+          id: 'ca-app-pub-3940256099942544/6300978111'
+        });
+        this.esPremium = false;
+      }
+    });
   }
 
   /* ES IMPORTANTE QUE, CUANDO SE ABANDONE LA PAGINA,
